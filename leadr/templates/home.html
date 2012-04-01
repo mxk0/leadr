@@ -1,0 +1,91 @@
+{% extends "base-site.html" %}
+
+{% block main %}
+
+  </head>
+
+  <body>
+    <div class="container">
+
+      <!--Header-->
+      <header class="marketing-header">
+        <div class="row">
+          <div class="span3_header offset2">
+            <h1><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></h1>
+          </div>
+          <div class="span4_header">
+            <h2>A simple way to save locations, share with your friends, and always know where you're headed.</h2>
+          </div>
+        </div>
+      </header>
+
+
+      <!--Example with Map-->
+      <div class="span4 offset2">
+        <div class="mini-layout">
+          <h3>Gramercy Park Hotel</h2>
+          <h6>Added: March 20, 2012</h4>
+          <div class="mini-layout-body">
+<!--             <div id="map_canvas" style="width: 338px; height: 205px"></div> -->
+            <a href="http://maps.google.com/maps?t=h&q=2,Lexington,Avenue,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=2,Lexington,Avenue,New,York,NY&zoom=15&size=338x200&markers=color:FF3333|2,Lexington,Avenue,New,York,NY&sensor=false"></img></a>
+          </div>
+          <p><h4>2 Lexington Avenue, New York NY</h3>
+          Tags: billiards, tunes, prosciutto</p>
+        </div>
+      </div>
+
+
+
+      <!--LogIn form-->
+      <div class="span4">
+        <form class="mini-layout-login" action="/login" method="post">{% csrf_token %}
+          <form class="form-inline">
+            <table>
+              <tr><td>{{ login_form.username }}</td></tr>
+              <tr>
+                <td>{{ login_form.password }}</td>
+                <td><input type="submit" value="Log In" class="btn btn-primary-pwd"></td>
+              </tr>
+            </table>
+            <h6>Forgot password?</h6>
+          </form>
+        </form>
+      </div>
+
+
+      <!--Register form-->
+      <div class="span4">
+        <form class="mini-layout-register" action="/register" method="POST">{% csrf_token %}
+          <p><strong>New to Leadr? </strong>Sign up here.</p>
+          <table>
+            <tr><td>{{ registration_form.first_name }}</td></tr>
+            <tr><td>{{ registration_form.email }}</td></tr>
+            <tr><td>{{ registration_form.password }}</td></tr>
+          </table>
+          <input type="submit" value="Register" class="btn btn-primary pull-right">
+        </form>
+      </div>
+
+      
+      <!-- Marketing columns -->
+      <div class="marketing">
+        <div class="row"></div>
+        <div class="row">
+          <hr class="soften">
+          <div class="span3_marketing offset1">
+            <h2>Save Locations</h2>
+              <p>Save a location by highlighting an address -- from your email, a Paperless Post invitation, a restaurant review, etc.</p>
+          </div>
+          <div class="span3">
+            <h2>Lead the Pack</h2>
+              <p>Share locations with your friends via SMS or email using our quick and easy public link generator.</p>
+         </div>
+          <div class="span3">
+            <h2>Go Mobile</h2>
+              <p>Hit the streets! Navigate to Leadr on your mobile phone, and never struggle to look up an address or find directions again.</p>
+          </div>
+        </div>
+        <hr class="soften">
+      </div>
+
+{% endblock %}

@@ -1,17 +1,17 @@
 from django.conf.urls.defaults import patterns, include, url
+import settings
+from django.contrib import admin
+admin.autodiscover()
 
-# Uncomment the next two lines to enable the admin:
-# from django.contrib import admin
-# admin.autodiscover()
+from leadr.browser.views import home, register, login_view, logout_view, browser, new_location
 
 urlpatterns = patterns('',
-    # Examples:
-    # url(r'^$', 'leadr.views.home', name='home'),
-    # url(r'^leadr/', include('leadr.foo.urls')),
-
-    # Uncomment the admin/doc line below to enable admin documentation:
-    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-
-    # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
+	url(r'^browser/$', browser, name='browser'),
+    url(r'^$', home, name='home'),
+    url(r'^register$', register, name='register'),
+    url(r'^login$', login_view, name='login'),
+    url(r'^logout$', logout_view, name='logout'),
+    url(r'^new$', new_location, name='new'),
+    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )

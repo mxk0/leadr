@@ -1,0 +1,137 @@
+{% extends "base-site.html" %}
+
+{% block main %}
+  
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#searchSubmit').click(function() {
+      q = $('#q').val();
+      $('#results').html('&nbsp;').load('http://127.0.0.1:8000/search/entries/?q=' + q);
+    });
+  });
+
+  // $(document).ajaxStart(function() {
+  //   $('#spinner').show();
+  // }).ajaxStop(function() {
+  //   $('#spinner').hide();
+  // });
+  </script>
+
+  </head>
+
+  <body>
+
+
+    <!--Modals-->
+    <!--New Location Modal-->
+    <div id="locationModal" class="modal hide fade">
+      <form action='/new' method='POST'>{% csrf_token %}
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal" >&times;</a>
+          <h3>Add a New Location</h3>
+        </div>
+        <div class="modal-body">
+          <table>
+            <tr><td><h5>Enter a title:</h5></td></tr>
+            <tr><td>{{ entry_form.title }}<br /><br /></td></tr>
+
+            <tr><td><h5>Enter an address (without commas, like '123 Mulberry Lane Neverland ZZ'):</h5></td></tr>
+            <tr><td>{{ entry_form.raw_address }}<br /><br /></td></tr>
+
+            <tr><td><h5>Enter tags (i.e. 'burgers, beer, brogramming'):</h5></td></tr>
+            <tr><td>{{ entry_form.tags }}<br /><br /></td></tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <a class="btn pull-left" data-dismiss="modal" >Cancel</a>
+          <input type="submit" value="Add New Location" class="btn btn-primary pull-right">
+        </div>
+      </form>
+    </div>
+
+    <!--Account Modal-->
+    <div id="accountModal" class="modal hide fade">
+      <div class="modal-header">
+        <a class="close" data-dismiss="modal" >&times;</a>
+        <h3>Your Account</h3>
+      </div>
+      <div class="modal-body">
+        <h4>Change your e-mail address:</h4>
+        <input type="text" class="span5" placeholder="{{ user.email }}"><br /><br />
+
+        <h4>Change your password:</h4>
+        <input type="text" class="span3" placeholder="New password">
+        <input type="text" class="span3" placeholder="Confirm new password"><br /><br />
+
+        <h4>Enter your current password to confirm any changes:</h4>
+        <input type="text" class="span3" placeholder="Current password"><br /><br />
+
+        <label class="checkbox">
+          <input type="checkbox"> Keep sending me brief, infrequent updates and tips.
+        </label></br>
+      </div>
+      <div class="modal-footer">
+        <a href="#" class="btn pull-left" data-dismiss="modal" >Close</a>
+        <a href="#" class="btn btn-primary">Save changes</a>
+      </div>
+    </div>
+
+
+
+    <!--Nav Bar-->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+          <a class="brand" href="#"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><a data-toggle="modal" href="#locationModal">Add Location</a></li>
+            </ul>
+<!--             <form class="navbar-search" method="get" action=".">
+              <input type="text" class="search-query" placeholder="Search by title, tag, or address"/>
+            </form> -->
+            <!--Account and Log Out links-->
+            <ul class="nav pull-right">
+              <li>
+                <a>Welcome, {{ browser_user.first_name }}</a>
+              </li>
+<!--               <li>
+                <a data-toggle="modal" href="#accountModal">Account</a>
+              </li> -->
+              <li><a href="http://www.leadr.cc/logout/">Log Out</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="row">
+
+        {% for entry in entry_list %}
+        <div class="span4">
+          <div class="mini-layout">
+          <h3>{{ entry.title }}</h3>
+          <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
+            <div class="mini-layout-body">
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+            </div>
+            <p><h4>{{ entry.raw_address }}</h4>
+            Tags: {{ entry.tag_lst }}</p>
+          </div>
+        </div><!-- /.span -->
+        {% endfor %}
+
+      </div><!-- /.row -->
+
+{% endblock %}
+
+{% block footer %}<p>Know where you're headed. Remember where you've been.</p>{% endblock %}
+
