@@ -19,7 +19,7 @@ def home(request):
         registration_form = RegistrationForm()
         login_form = LoginForm()
         context = RequestContext(request, {'registration_form':registration_form, 'login_form':login_form})
-        return render_to_response('home.html', context)
+        return render_to_response('/Users/MKramer/Desktop/deploy/whereto/leadr/templates/home.html', context)
 
 
 def register(request):
