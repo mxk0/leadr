@@ -51,6 +51,7 @@ LOGIN_URL = '/'
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
 MEDIA_ROOT = 'leadr/media'
+#MEDIA_ROOT = '/Users/MKramer/desktop/deploy/whereto/leadr/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -113,6 +114,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     'leadr/templates'
+    '/Users/MKramer/desktop/deploy/whereto/leadr/templates'
 )
 
 INSTALLED_APPS = (
