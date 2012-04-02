@@ -114,7 +114,7 @@ TEMPLATE_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
     'leadr/templates'
-    '/Users/MKramer/desktop/deploy/whereto/leadr/templates'
+    #'/Users/MKramer/desktop/deploy/whereto/leadr/templates'
 )
 
 INSTALLED_APPS = (
