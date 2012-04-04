@@ -1,0 +1,117 @@
+{% extends "base-site.html" %}
+
+{% block main %}
+
+  </head>
+
+  <body>
+
+
+    <!--Login/Register Modal-->
+    <div id="accountModal" class="modal-register hide fade">
+      <form action='/login' method='POST'>{% csrf_token %}
+        
+        <!-- Login -->
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal" >&times;</a>
+          <h3><strong><font face="Georgia">Already have an account?</font></strong></h3>
+        </div>
+        <div class="modal-body">
+          <h4><font face="Georgia">Sign in here.</font></h4>
+            <table>
+              <tr><td>{{ login_form.username }}</td></tr>
+              <tr>
+                <td>{{ login_form.password }}</td>
+                <td><input type="submit" value="Log In" class="btn btn-primary-pwd"></td>
+              </tr>
+            </table>
+  <!--             <h6>Forgot password?</h6> -->
+        </div>
+      </form>
+
+      <form action='/register' method='POST'>{% csrf_token %}
+        <!-- Register -->
+        <div class="modal-header-space"></div>
+        <div class="modal-header">
+          <h3><strong><font face="Georgia">New to Lead</font><font face="Georgia" color="#FF3333">r</font>?</strong></h3>
+        </div>
+        <div class="modal-body">
+          <h4><font face="Georgia">Sign up to easily save and share locations.</font></h4>
+          <table>
+            <tr><td>{{ registration_form.first_name }}</td></tr>
+
+            <tr><td>{{ registration_form.email }}</td></tr>
+
+            <tr><td>{{ registration_form.password }}</td></tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <a class="btn pull-left" data-dismiss="modal" >Cancel</a>
+          <input type="submit" value="Register" class="btn btn-primary pull-right">
+        </div>
+      </form>
+    </div>
+
+
+    <!--Nav Bar-->
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </a>
+<!--           <a class="brand" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a> -->
+          <a class="brand"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
+          <div class="nav-collapse">
+            <ul class="nav">
+              <li><p class="navbar-text">Save locations, share with your friends, go mobile.</p></li>
+            </ul>
+            <ul class="nav pull-right">
+              <li>
+                <button class="btn btn-small" href="#linkCopy">Copy Link</button>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+    </div>
+
+
+    <div class="container">
+
+      <div class="row"><br />
+        <div class="span4 offset4">
+          <div class="mini-layout-title">
+            <h4>Max Kramer has shared a location with you!</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="span4 offset4">
+          <div class="mini-layout-card">
+          <h3>Ace Hotel - Lobby Bar</h3>
+          <h6>Shared by: Max Kramer</h6>
+            <div class="mini-layout-body">
+              <a href="http://maps.google.com/maps?t=h&q=20,W,29th,Street,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=20,W,29th,Street,New,York,NY&zoom=15&size=338x200&scale=2&markers=color:red|20,W,29th,Street,New,York,NY&sensor=false"></img></a>
+            </div>
+            <p><h4>20 W 29th Street, New York NY</h4>
+            Tags: burgers, coffee, office space</p>
+          </div>
+        </div><!-- /.span -->
+      </div><!-- /.row -->
+
+      <div class="row">
+        <div class="span4_add">
+          <p>
+            <button class="btn btn-xlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
+          </p>
+        </div>
+      </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+

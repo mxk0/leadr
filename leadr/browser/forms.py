@@ -14,9 +14,29 @@ class RegistrationForm(forms.ModelForm):
 		}
 
 
+class RegistrationModalForm(forms.ModelForm):
+	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email', 'class':'spanmodal'}))	
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password', 'class':'spanmodal'}))
+
+	class Meta():
+		model = User
+		fields = ['first_name']
+		widgets = {
+			'first_name':forms.TextInput(attrs={'placeholder':'Full name', 'class':'spanmodal'}),
+		}
+
+
 class LoginForm(forms.ModelForm):
 	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Email', 'class':'spanhome'}))
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class':'spanpwd'}))
+
+	class Meta():
+		model = User
+
+
+class LoginModalForm(forms.ModelForm):
+	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Email', 'class':'spanmodal'}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class':'spanmodalpwd'}))
 
 	class Meta():
 		model = User

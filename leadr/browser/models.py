@@ -16,3 +16,12 @@ class Entry(models.Model):
 
 	def __unicode__(self):
 		return self.title
+
+class Example(models.Model):
+	raw_address = models.CharField(max_length=100)
+	title = models.CharField(max_length=140, blank=True, null=True)
+	created = models.DateTimeField(auto_now_add=True)
+	tags = models.ManyToManyField(Tag, blank=True)
+
+	def __unicode__(self):
+		return self.title

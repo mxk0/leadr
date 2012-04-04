@@ -1,21 +1,6 @@
 {% extends "base-site.html" %}
 
 {% block main %}
-  
-  <script type="text/javascript">
-  $(document).ready(function() {
-    $('#searchSubmit').click(function() {
-      q = $('#q').val();
-      $('#results').html('&nbsp;').load('http://127.0.0.1:8000/search/entries/?q=' + q);
-    });
-  });
-
-  // $(document).ajaxStart(function() {
-  //   $('#spinner').show();
-  // }).ajaxStop(function() {
-  //   $('#spinner').hide();
-  // });
-  </script>
 
   <script type="text/javascript">
 
@@ -31,7 +16,10 @@
 
   </script>
 
+
   </head>
+
+
 
   <body>
 
@@ -45,14 +33,14 @@
           <h3>Add a New Location</h3>
         </div>
         <div class="modal-body">
-          <table>
+          <table><br />
             <tr><td><h5>Enter a title:</h5></td></tr>
             <tr><td>{{ entry_form.title }}<br /><br /></td></tr>
 
-            <tr><td><h5>Enter an address (without commas, like '123 Mulberry Lane Neverland ZZ'):</h5></td></tr>
+            <tr><td><h5>Enter an address:</h5></td></tr>
             <tr><td>{{ entry_form.raw_address }}<br /><br /></td></tr>
 
-            <tr><td><h5>Enter tags (i.e. 'burgers, beer, brogramming'):</h5></td></tr>
+            <tr><td><h5>Enter tags (i.e. 'bacon, bourbon, bacon bourbon'):</h5></td></tr>
             <tr><td>{{ entry_form.tags }}<br /><br /></td></tr>
           </table>
         </div>
@@ -101,7 +89,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-          <a class="brand" href="#"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
+          <a class="brand" href="http://www.leadr.cc"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
           <div class="nav-collapse">
             <ul class="nav">
               <li><a data-toggle="modal" href="#locationModal">Add Location</a></li>
@@ -112,39 +100,85 @@
             <!--Account and Log Out links-->
             <ul class="nav pull-right">
               <li>
-                <a>Welcome, {{ browser_user.first_name }}</a>
+                <p class="navbar-text">Welcome, {{ browser_user.first_name }}</p>
               </li>
 <!--               <li>
                 <a data-toggle="modal" href="#accountModal">Account</a>
               </li> -->
-              <li><a href="http://www.leadr.cc/logout">Log Out</a></li>
-<!--               <li><a href="http://127.0.0.1:7777/logout">Log Out</a></li>
- -->            </ul>
+<!--               <li><a href="http://www.leadr.cc/logout">Log Out</a></li> -->
+              <li><a href="http://127.0.0.1:8000/logout">Log Out</a></li>
+            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
+    {% if entry_list|length < 3 %}
 
-    <div class="container">
+      <div class="container">
 
-      <div class="row">
-
-        {% for entry in entry_list %}
-        <div class="span4_card">
-          <div class="mini-layout-card">
-          <h3>{{ entry.title }}</h3>
-          <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
-            <div class="mini-layout-body">
-              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+        <div class="row">
+          <div class="span12">
+            <div class="mini-layout-description">
+              <h2>Welcome to Leadr! Click "Add Location" above to start saving your own places.</h2>
+              <h5>(Don't worry, we'll ditch our examples as soon as you have three!)</h5>
             </div>
-            <p><h4>{{ entry.raw_address }}</h4>
-            Tags: {{ entry.tag_lst }}</p>
           </div>
-        </div><!-- /.span -->
-        {% endfor %}
+        </div>
 
-      </div><!-- /.row -->
+        <div class="row">
+          {% for entry in entry_list %}
+          <div class="span4_card">
+            <div class="mini-layout-card">
+            <h3>{{ entry.title }}</h3>
+            <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
+              <div class="mini-layout-body">
+                <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+              </div>
+              <p><h4>{{ entry.raw_address }}</h4>
+              Tags: {{ entry.tag_lst }}</p>
+            </div>
+          </div>
+          {% endfor %}
+          {% for example in example_list %}
+          <div class="span4_card">
+            <div class="mini-layout-card">
+            <h3>{{ example.title }}</h3>
+            <h6>Added: {{ date|date:"m/d/Y" }}</h6>
+              <div class="mini-layout-body">
+                <a href="http://maps.google.com/maps?t=h&q={{ example.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ example.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ example.split_address }}&sensor=false"></img></a>
+              </div>
+              <p><h4>{{ example.raw_address }}</h4>
+              Tags: {{ example.tag_lst }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+
+      </div>
+
+
+    {% else %}
+
+      <div class="container">
+        <div class="row">
+          {% for entry in entry_list %}
+          <div class="span4_card">
+            <div class="mini-layout-card">
+            <h3>{{ entry.title }}</h3>
+            <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
+              <div class="mini-layout-body">
+                <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+              </div>
+              <p><h4>{{ entry.raw_address }}</h4>
+              Tags: {{ entry.tag_lst }}</p>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+
+    {% endif %}
 
 {% endblock %}
 

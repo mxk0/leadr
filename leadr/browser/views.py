@@ -4,10 +4,13 @@ from django.template.context import RequestContext
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from leadr.browser.models import Entry, Tag
+from leadr.browser.models import Entry, Tag, Example
 from os.path import join
+from settings import MEDIA_ROOT
+import settings
+import datetime
 
-from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm
+from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm
 
 
 def home(request):
@@ -18,7 +21,7 @@ def home(request):
     else:
         registration_form = RegistrationForm()
         login_form = LoginForm()
-        context = RequestContext(request, {'registration_form':registration_form, 'login_form':login_form})
+        context = RequestContext(request, {'registration_form':registration_form, 'login_form':login_form, 'media_root':MEDIA_ROOT})
         return render_to_response('home.html', context)
 
 
@@ -28,13 +31,21 @@ def register(request):
         registration_form = RegistrationForm(request.POST)
         if registration_form.is_valid():
             new_user = registration_form.save(commit=False)
+            
+            #sets username to email etc.
             email = registration_form.cleaned_data['email']
-            first_name = registration_form.cleaned_data['first_name']
             password = registration_form.cleaned_data['password']
             username = email
-            #build logic here to populate first and last name fields
             new_user.email = email
             new_user.username = username
+
+            #first and last name logic
+            name = registration_form.cleaned_data['first_name']
+            names = name.split(' ')
+            new_user.first_name = names[0]
+            if len(names)>1:
+                new_user.last_name = names[1]
+            
             new_user.set_password(password)
             if not User.objects.filter(username=username):
                 new_user.save()
@@ -81,6 +92,7 @@ def logout_view(request):
 def browser(request):
     """Checks whether user is logged in, if so loads browser."""
     entry_form = EntryForm()
+    date = datetime.datetime.now()
 
     entries = request.user.entry_set.order_by('-created')
     for entry in entries:
@@ -94,8 +106,21 @@ def browser(request):
                 trunc_tag_lst = entry.tag_lst[0:45] + "..."
                 entry.tag_lst = trunc_tag_lst
         entry.split_address = ','.join(entry.raw_address.split(' '))
+
+    examples = Example.objects.all().order_by('-created')
+    for example in examples:
+        tags = [x[1] for x in example.tags.values_list()]
+        if tags:
+            example.tag_lst = tags[0]
+            if len(tags)>1:
+                for i in range(1, len(tags)):
+                    example.tag_lst += (', ' + tags[i])
+            if len(example.tag_lst) > 40:
+                trunc_tag_lst = example.tag_lst[0:45] + "..."
+                example.tag_lst = trunc_tag_lst
+        example.split_address = ','.join(example.raw_address.split(' '))
     
-    context = RequestContext(request, {'browser_user':request.user, 'entry_list':entries, 'entry_form':entry_form})
+    context = RequestContext(request, {'browser_user':request.user, 'entry_list':entries, 'entry_form':entry_form, 'date':date, 'example_list':examples})
     return render_to_response('browser.html', context)
 
 
@@ -103,7 +128,8 @@ def browser(request):
 def new_location(request):
     if request.method == 'POST':
         entry_form = EntryForm(request.POST)
-        tags = ((request.POST['tags']).replace(' ','')).split(',')
+        #fix tags here so spaces appear in multi-word tags
+        tags = ((request.POST['tags']).replace(', ',',')).split(',')
         if entry_form.is_valid():
             e = Entry.objects.create(user=request.user, raw_address=entry_form.cleaned_data['raw_address'], title=entry_form.cleaned_data['title'])
             lst = []
@@ -115,3 +141,24 @@ def new_location(request):
     else:
         return HttpResponseRedirect('/browser/') 
 
+
+def single_loc(request):
+    """Shows single location."""
+    registration_form = RegistrationModalForm()
+    login_form = LoginModalForm()
+
+    # entries = request.user.entry_set.order_by('-created')
+    # for entry in entries:
+    #     tags = [x[1] for x in entry.tags.values_list()]
+    #     if tags:
+    #         entry.tag_lst = tags[0]
+    #         if len(tags)>1:
+    #             for i in range(1, len(tags)):
+    #                 entry.tag_lst += (', ' + tags[i])
+    #         if len(entry.tag_lst) > 40:
+    #             trunc_tag_lst = entry.tag_lst[0:45] + "..."
+    #             entry.tag_lst = trunc_tag_lst
+    #     entry.split_address = ','.join(entry.raw_address.split(' '))
+    
+    context = RequestContext(request, {'browser_user':request.user, 'registration_form':registration_form, 'login_form':login_form})
+    return render_to_response('single_loc.html', context)

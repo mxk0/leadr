@@ -1,0 +1,34 @@
+      <div class="container">
+        <div class="row">
+          <div class="span12">
+            <div class="mini-layout-directions">
+              <div class="span4-card">
+                <br /><br /><br /><br /><br /><br /><p><i class="icon-arrow-right"></i></p><br /><br /><br />
+                <p><i class="icon-arrow-right"></i></p><br /><br /><br />
+                <p><i class="icon-arrow-right"></i></p>
+              </div><!-- /.span -->
+
+              <div class="span55">
+                <img src='../media/img/add_location.png' />
+                <!-- <img src='leadr/media/img/add_location.png' /> -->
+              </div>
+
+              <div class="span1_arrow">
+                <i class="icon-arrow-right"></i>
+              </div>
+
+              <div class="span4_card2 offset1">
+                <div class="mini-layout-card">
+                <h3>Ace Hotel - Lobby Bar</h3>
+                <h6>Added: 04/02/2012</h6>
+                  <div class="mini-layout-body">
+                    <a href="http://maps.google.com/maps?t=h&q=20,W,29th,Street,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=20,W,29th,Street,New,York,NY&zoom=15&size=338x200&scale=2&markers=color:red|20,W,29th,Street,New,York,NY&sensor=false"></img></a>
+                  </div>
+                  <p><h4>20 W 29th Street, New York NY</h4>
+                  Tags: burgers, coffee, office space</p>
+                </div>
+              </div><!-- /.span -->
+            </div>
+          </div>
+        </div>
+      </div><!-- /.container -->
