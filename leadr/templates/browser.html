@@ -26,7 +26,7 @@
 
     <!--Modals-->
     <!--New Location Modal-->
-    <div id="locationModal" class="modal hide fade">
+    <div id="locationModal" class="modal-add hide fade">
       <form action='/new' method='POST'>{% csrf_token %}
         <div class="modal-header">
           <a class="close" data-dismiss="modal" >&times;</a>
@@ -161,6 +161,15 @@
     {% else %}
 
       <div class="container">
+
+        <div class="row">
+          <div class="span12">
+            <div class="mini-layout-description2">
+              <h2>Welcome to Leadr! Click "Add Location" above to save a place.</h2>
+            </div>
+          </div>
+        </div>
+
         <div class="row">
           {% for entry in entry_list %}
           <div class="span4_card">
