@@ -1,0 +1,19 @@
+
+Changes:
+	Log-out link in browser
+	3 things in settings
+		MEDIA_ROOT
+		TEMPLATES_DIR
+		add 'gunicorn' to installed apps
+
+
+in whereto directory
+	source leadrenv/bin/activate
+	git add .
+	git commit -m ""
+	git push heroku
+
+
+
+to sync db
+	heroku run python leadr/manage.py syncdb

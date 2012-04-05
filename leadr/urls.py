@@ -8,7 +8,7 @@ from leadr.browser.views import home, register, login_view, logout_view, browser
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 	url(r'^browser/$', browser, name='browser'),
-    #url(r'^location/$', single_loc, name="location"),
+    url(r'^location/$', single_loc, name="location"),
     url(r'^$', home, name='home'),
     url(r'^register$', register, name='register'),
     url(r'^login$', login_view, name='login'),
