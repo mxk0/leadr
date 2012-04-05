@@ -2126,12 +2126,15 @@ table .span24 {
 .btn-xlarge {
   padding: 9px 14px;
   font-size: 25px;
+  font-family: "Georgia";
+  font-weight: bold;
   line-height: normal;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
   margin-left: 40px;
-  width: 369px;
+  width: 339px;
+  height: 30px;
 }
 .btn-xlarge [class^="icon-"] {
   margin-top: 1px;
@@ -2382,6 +2385,13 @@ button.btn::-moz-focus-inner,
 input[type="submit"].btn::-moz-focus-inner {
   padding: 0;
   border: 0;
+}
+button.btn.btn-xlarge,
+input[type="submit"].btn.btn-xlarge {
+  *padding-top: 7px;
+  *padding-bottom: 7px;
+  width: 369px;
+  height: 50px;
 }
 button.btn.btn-large,
 input[type="submit"].btn.btn-large {

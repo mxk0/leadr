@@ -162,3 +162,40 @@ def single_loc(request):
     
     context = RequestContext(request, {'browser_user':request.user, 'registration_form':registration_form, 'login_form':login_form})
     return render_to_response('single_loc.html', context)
+
+
+def add_single(request):
+    print "fffffffffffffffffffffffffffffffffffffffff"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -103,13 +103,24 @@
         </div><!-- /.span -->
       </div><!-- /.row -->
 
+      {% if user.is_authenticated %}
+      <div class="row">
+        <div class="span4_add">
+          <form action="/add_single" method="post">{% csrf_token %}
+            <input type="submit" class="btn btn-xlarge btn-inverse"  action="/add_single/{{ gid }}" method="post" value="+Add to Leadr"></input>
+          </form>
+        </div>
+      </div><br /><br />
+
+      {% else %}
       <div class="row">
         <div class="span4_add">
           <p>
             <button class="btn btn-xlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
           </p>
         </div>
-      </div>
+      </div><br /><br />
+      {% endif %}
 
 {% endblock %}
 
