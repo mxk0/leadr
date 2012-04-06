@@ -9,7 +9,7 @@
 
     <!--Login/Register Modal-->
     <div id="accountModal" class="modal-register hide fade">
-      <form action='/login' method='POST'>{% csrf_token %}
+      <form action='/login_add' method='POST'>{% csrf_token %}
         
         <!-- Login -->
         <div class="modal-header">
@@ -29,7 +29,7 @@
         </div>
       </form>
 
-      <form action='/register' method='POST'>{% csrf_token %}
+      <form action='/register_add' method='POST'>{% csrf_token %}
         <!-- Register -->
         <div class="modal-header-space"></div>
         <div class="modal-header">
@@ -62,8 +62,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </a>
-<!--           <a class="brand" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a> -->
-          <a class="brand"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
+          <a class="brand" href="http://www.leadr.cc/"><strong><font face="Georgia">Lead</font><font face="Georgia" color="#FF3333">r</font></strong></a>
           <div class="nav-collapse">
             <ul class="nav">
               <li><p class="navbar-text">Save locations, share with your friends, go mobile.</p></li>
@@ -92,21 +91,22 @@
       <div class="row">
         <div class="span4 offset4">
           <div class="mini-layout-card">
-          <h3>Ace Hotel - Lobby Bar</h3>
-          <h6>Shared by: Max Kramer</h6>
+          <h3>{{ entry.title }}</h3>
+          <h6>Shared by: {{ entry.user.first_name }}</h6>
             <div class="mini-layout-body">
-              <a href="http://maps.google.com/maps?t=h&q=20,W,29th,Street,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=20,W,29th,Street,New,York,NY&zoom=15&size=338x200&scale=2&markers=color:red|20,W,29th,Street,New,York,NY&sensor=false"></img></a>
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
             </div>
-            <p><h4>20 W 29th Street, New York NY</h4>
-            Tags: burgers, coffee, office space</p>
+            <p><h4>{{ entry.raw_address }}</h4>
+            Tags: {{ entry.tag_lst }}</p>
           </div>
         </div><!-- /.span -->
       </div><!-- /.row -->
 
+
       {% if user.is_authenticated %}
       <div class="row">
         <div class="span4_add">
-          <form action="/add_single" method="post">{% csrf_token %}
+          <form action="/add_single" method="get">
             <input type="submit" class="btn btn-xlarge btn-inverse"  action="/add_single/{{ gid }}" method="post" value="+Add to Leadr"></input>
           </form>
         </div>
