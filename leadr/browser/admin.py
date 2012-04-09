@@ -13,7 +13,8 @@ class TagAdmin(admin.ModelAdmin):
 class ExampleAdmin(admin.ModelAdmin):
 	search_fields = ['title', 'tag']
 
-UserAdmin.list_display = ('username', 'date_joined', 'email', 'first_name')
+UserAdmin.list_display = ('username', 'date_joined', 'email', 'first_name', 'last_name')
+UserAdmin.ordering = ['-date_joined']
 
 
 admin.site.register(Entry, EntryAdmin)

@@ -79,6 +79,18 @@
     </div>
 
 
+    <!--Share Modal-->
+    <div id="shareModal" class="modal-share hide fade">
+      <div class="modal-header">
+        <a href="#" class="close" data-dismiss="modal">&times;</a>
+        <h3>Share</h3>
+      </div>
+      <div class="modal-body">
+        <p>Share the link below to easily send this location via email or SMS.</p>
+      </div>
+    </div>
+
+
 
     <!--Nav Bar-->
     <div class="navbar navbar-fixed-top">
@@ -105,92 +117,75 @@
 <!--               <li>
                 <a data-toggle="modal" href="#accountModal">Account</a>
               </li> -->
-              <li><a href="http://www.leadr.cc/logout">Log Out</a></li>
-              <!-- <li><a href="http://127.0.0.1:8000/logout">Log Out</a></li> -->
+              <!-- <li><a href="http://www.leadr.cc/logout">Log Out</a></li> -->
+              <li><a href="http://127.0.0.1:8000/logout">Log Out</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
       </div>
     </div>
 
-    {% if entry_list|length < 3 %}
+    
 
-      <div class="container">
+    <div class="container">
 
-        <div class="row">
-          <div class="span12">
-            <div class="mini-layout-description">
-              <h2>Welcome to Leadr! Click "Add Location" above to start saving your own places.</h2>
-              <h4>COMING SOON! Mobile apps, securely share places with friends, and easily add to Leadr through Gmail or our handy bookmarklet.</h4>
+      <div class="row">
+        <div class="span12">
+          <div class="mini-layout-description">
+            <h2>Welcome to Leadr! Click "Add Location" above to start saving your own places.</h2>
+            <h4>Coming soon: Mobile apps // Easily add to Leadr through Gmail or our handy bookmarklet</h4>
 <!--               <h5>(Don't worry, we'll ditch our examples as soon as you have three!)</h5> -->
-            </div>
           </div>
         </div>
+      </div>
 
-        <div class="row">
-          {% for entry in entry_list %}
-          <div class="span4_card">
-            <div class="mini-layout-card">
+      <div class="row">
+        {% for entry in entry_list %}
+        <div class="span4_card">
+          <div class="mini-layout-card">
+            <div class="mini-layout-header">
+              <h5>
+                <form action="/location/{{ entry.id }}" method="get">
+                  Added: {{ entry.created|date:"m/d/Y" }}
+                  <input type="submit" class="btn btn-copy" value="Share"></input>
+                </form>
+              </h5>      
+            </div>   
             <h3>{{ entry.title }}</h3>
-            <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
-              <div class="mini-layout-body">
-                <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
-              </div>
-              <p><h4>{{ entry.raw_address }}</h4>
-              Tags: {{ entry.tag_lst }}</p>
+            <div class="mini-layout-body">
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
             </div>
+            <h4>{{ entry.raw_address }}</h4>
+            Tags: {{ entry.tag_lst }}
           </div>
-          {% endfor %}
+        </div>
+        {% endfor %}
+        {% if entry_list|length < 3 %}
           {% for example in example_list %}
           <div class="span4_card">
             <div class="mini-layout-card">
-            <h3>{{ example.title }}</h3>
-            <h6>Added: {{ date|date:"m/d/Y" }}</h6>
-              <div class="mini-layout-body">
-                <a href="http://maps.google.com/maps?t=h&q={{ example.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ example.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ example.split_address }}&sensor=false"></img></a>
+              <div class="mini-layout-header">
+                <h5>
+                  <form action="/add_example/{{ example.id }}" method="post">{% csrf_token %}
+                    Example - click "ADD" to save
+                    <input type="submit" class="btn btn-add" value="Add"></input>
+                  </form>
+                </h5>
               </div>
-              <p><h4>{{ example.raw_address }}</h4>
-              Tags: {{ example.tag_lst }}</p>
+              <h3>{{ example.title }}</h3>
+              <div class="mini-layout-body">
+                <a href="http://maps.google.com/maps?t=h&q={{ example.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ example.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ example.split_address }}&sensor=false"></img></a>
+              </div>
+              <h4>{{ example.raw_address }}</h4>
+              Tags: {{ example.tag_lst }}
             </div>
           </div>
           {% endfor %}
-        </div>
-
+        {% endif %}
       </div>
 
+    </div>
 
-    {% else %}
-
-      <div class="container">
-
-        <div class="row">
-          <div class="span12">
-            <div class="mini-layout-description">
-              <h2>Welcome to Leadr! Click "Add Location" above to start saving your own places.</h2>
-              <h4>COMING SOON! Mobile apps, securely share places with friends, and easily add to Leadr through Gmail or our handy bookmarklet.</h4>
-<!--               <h5>(Don't worry, we'll ditch our examples as soon as you have three!)</h5> -->
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          {% for entry in entry_list %}
-          <div class="span4_card">
-            <div class="mini-layout-card">
-            <h3>{{ entry.title }}</h3>
-            <h6>Added: {{ entry.created|date:"m/d/Y" }}</h6>
-              <div class="mini-layout-body">
-                <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
-              </div>
-              <p><h4>{{ entry.raw_address }}</h4>
-              Tags: {{ entry.tag_lst }}</p>
-            </div>
-          </div>
-          {% endfor %}
-        </div>
-      </div>
-
-    {% endif %}
 
 {% endblock %}
 

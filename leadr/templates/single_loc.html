@@ -9,7 +9,7 @@
 
     <!--Login/Register Modal-->
     <div id="accountModal" class="modal-register hide fade">
-      <form action='/login_add' method='POST'>{% csrf_token %}
+      <form action='/login_add/{{ entry.id }}' method='POST'>{% csrf_token %}
         
         <!-- Login -->
         <div class="modal-header">
@@ -24,12 +24,12 @@
                 <td>{{ login_form.password }}</td>
                 <td><input type="submit" value="Log In" class="btn btn-primary-pwd"></td>
               </tr>
-            </table>
+            </table><br />
   <!--             <h6>Forgot password?</h6> -->
         </div>
       </form>
 
-      <form action='/register_add' method='POST'>{% csrf_token %}
+      <form action='/register_add/{{ entry.id }}' method='POST'>{% csrf_token %}
         <!-- Register -->
         <div class="modal-header-space"></div>
         <div class="modal-header">
@@ -67,11 +67,11 @@
             <ul class="nav">
               <li><p class="navbar-text">Save locations, share with your friends, go mobile.</p></li>
             </ul>
-            <ul class="nav pull-right">
+<!--             <ul class="nav pull-right">
               <li>
                 <button class="btn btn-small" href="#linkCopy">Copy Link</button>
               </li>
-            </ul>
+            </ul> -->
           </div><!--/.nav-collapse -->
         </div>
       </div>
@@ -80,46 +80,58 @@
 
     <div class="container">
 
-      <div class="row"><br />
+      <div class="row"><br /><br />
         <div class="span4 offset4">
-          <div class="mini-layout-title">
-            <h4>Max Kramer has shared a location with you!</h4>
+          <div class="mini-layout-share">
+            <span class="input-zlarge uneditable-input">http://www.leadr.cc/location/{{ entry.id }}</span>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="span4 offset4">
+        <div class="span4_card offset4">
           <div class="mini-layout-card">
-          <h3>{{ entry.title }}</h3>
-          <h6>Shared by: {{ entry.user.first_name }}</h6>
-            <div class="mini-layout-body">
-              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x200&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+            <div class="mini-layout-header">
+              <h5>Copy the link above to share this location!</h5>
             </div>
-            <p><h4>{{ entry.raw_address }}</h4>
-            Tags: {{ entry.tag_lst }}</p>
+            <h3>{{ entry.title }}</h3>
+            <div class="mini-layout-body">
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+            </div>
+            <h4>{{ entry.raw_address }}</h4>
+            Tags: {{ entry.tag_lst }}
           </div>
-        </div><!-- /.span -->
-      </div><!-- /.row -->
+        </div>
+      </div>
 
 
       {% if user.is_authenticated %}
-      <div class="row">
-        <div class="span4_add">
-          <form action="/add_single" method="get">
-            <input type="submit" class="btn btn-xlarge btn-inverse"  action="/add_single/{{ gid }}" method="post" value="+Add to Leadr"></input>
-          </form>
-        </div>
-      </div><br /><br />
+        {% if browser_user = entry.user %}
+          <div class="row">
+            <div class="span4_add">
+              <form action="/browser" method="get">
+                <input type="submit" class="btn btn-xlarge btn-inverse" value="<< Back to Leadr"></input>
+              </form>
+            </div>
+          </div><br /><br />
+        {% else %}
+          <div class="row">
+            <div class="span4_add">
+              <form action="/add_single/{{ entry.id }}" method="post">{% csrf_token %}
+                <input type="submit" class="btn btn-xlarge btn-inverse" value="+Add to Leadr"></input>
+              </form>
+            </div>
+          </div><br /><br />
+        {% endif %}
 
       {% else %}
-      <div class="row">
-        <div class="span4_add">
-          <p>
-            <button class="btn btn-xlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
-          </p>
-        </div>
-      </div><br /><br />
+        <div class="row">
+          <div class="span4_add">
+            <p>
+              <button class="btn btn-xlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
+            </p>
+          </div>
+        </div><br /><br />
       {% endif %}
 
 {% endblock %}

@@ -128,6 +128,7 @@ def browser(request):
 
 @login_required
 def new_location(request):
+    """Adds a new location - uses modal form on browser."""
     if request.method == 'POST':
         entry_form = EntryForm(request.POST)
         #fix tags here so spaces appear in multi-word tags
@@ -145,10 +146,11 @@ def new_location(request):
 
 
 def single_loc(request, id):
-    """Shows single location."""
+    """Shows single location publicly."""
     registration_form = RegistrationModalForm()
     login_form = LoginModalForm()
     entry = Entry.objects.get(id=id)
+    print entry.user
 
     tags = [x[1] for x in entry.tags.values_list()]
     if tags:
@@ -166,32 +168,61 @@ def single_loc(request, id):
 
 
 
-def add_single(request):
-    uid = (request.META.get('HTTP_REFERER'))[-1:]
-    entry = Entry.objects.get(id=uid)
-    date = datetime.datetime.now()
+def add_single(request, id):
+    """Adds public location if user is logged in. Used with single_loc view."""
+    if request.method == 'POST':  
+        entry = Entry.objects.get(id=id)
+        date = datetime.datetime.now()
 
-    e = Entry.objects.create(user=request.user, raw_address=entry.raw_address, title=entry.title, created=date)
+        e = Entry.objects.create(user=request.user, raw_address=entry.raw_address, title=entry.title, created=date)
 
-    tags = [x[1] for x in entry.tags.values_list()]
-    if tags:
-        tag_str = tags[0]
-        if len(tags)>1:
-            for i in range(1, len(tags)):
-                tag_str += (', ' + tags[i])
-    tags_add = (tag_str.replace(', ',',')).split(',')
-    lst = []
-    for tag in tags_add:
-        t = Tag.objects.create(user=request.user, tag=tag)
-        lst.append(t)
-    e.tags = lst
+        tags = [x[1] for x in entry.tags.values_list()]
+        if tags:
+            tag_str = tags[0]
+            if len(tags)>1:
+                for i in range(1, len(tags)):
+                    tag_str += (', ' + tags[i])
+        tags_add = (tag_str.replace(', ',',')).split(',')
+        lst = []
+        for tag in tags_add:
+            t = Tag.objects.create(user=request.user, tag=tag)
+            lst.append(t)
+        e.tags = lst
 
-    return HttpResponseRedirect('/browser/')
+        return HttpResponseRedirect('/browser/')
+    else:
+        return HttpResponseRedirect('/')
 
 
-def login_add(request):
-    uid = (request.META.get('HTTP_REFERER'))[-1:]
-    entry = Entry.objects.get(id=uid)
+def add_example(request, id):
+    """Adds public location if user is logged in. Used with single_loc view."""
+    if request.method == 'POST':  
+        example = Example.objects.get(id=id)
+        date = datetime.datetime.now()
+
+        e = Entry.objects.create(user=request.user, raw_address=example.raw_address, title=example.title, created=date)
+
+        tags = [x[1] for x in example.tags.values_list()]
+        if tags:
+            tag_str = tags[0]
+            if len(tags)>1:
+                for i in range(1, len(tags)):
+                    tag_str += (', ' + tags[i])
+        tags_add = (tag_str.replace(', ',',')).split(',')
+        lst = []
+        for tag in tags_add:
+            t = Tag.objects.create(user=request.user, tag=tag)
+            lst.append(t)
+        e.tags = lst
+
+        return HttpResponseRedirect('/browser/')
+    else:
+        return HttpResponseRedirect('/')
+
+
+def login_add(request, id):
+    """Logs user in and adds single location to browser. Used with single_loc view."""
+    entry = Entry.objects.get(id=id)
     date = datetime.datetime.now()
 
     """Login functionality."""
@@ -202,13 +233,9 @@ def login_add(request):
         if user is not None:
             login(request, user)
         else:
-            return HttpResponseRedirect('/location/'+uid)
+            return HttpResponseRedirect('/location/'+id)
     else:
         return HttpResponseRedirect("/")
-
-    uid = (request.META.get('HTTP_REFERER'))[-1:]
-    entry = Entry.objects.get(id=uid)
-    date = datetime.datetime.now()
 
     e = Entry.objects.create(user=request.user, raw_address=entry.raw_address, title=entry.title, created=date)
 
@@ -228,9 +255,9 @@ def login_add(request):
     return HttpResponseRedirect('/browser/')
 
 
-def register_add(request):
-    uid = (request.META.get('HTTP_REFERER'))[-1:]
-    entry = Entry.objects.get(id=uid)
+def register_add(request, id):
+    """Registers and logs in new user and adds single location to browser. Used with single_loc view."""
+    entry = Entry.objects.get(id=id)
     date = datetime.datetime.now()
 
     """Registration functionality."""
@@ -260,11 +287,11 @@ def register_add(request):
                 if new_user:
                     login(request, new_user)
             else:
-                return HttpResponseRedirect('/location/'+uid)
+                return HttpResponseRedirect('/location/'+id)
         else:
-            return HttpResponseRedirect('/location/'+uid)
+            return HttpResponseRedirect('/location/'+id)
     else:
-        return HttpResponseRedirect('/location/'+uid)
+        return HttpResponseRedirect('/location/'+id)
 
 
     e = Entry.objects.create(user=request.user, raw_address=entry.raw_address, title=entry.title, created=date)

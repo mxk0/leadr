@@ -36,14 +36,20 @@
       <!--Example with Map-->
       <div class="span4_card offset2">
         <div class="mini-layout-card">
-          <h3>Gramercy Park Hotel</h2>
-          <h6>Added: {{ date|date:"m/d/Y" }}</h4>
-          <div class="mini-layout-body">
-<!--             <div id="map_canvas" style="width: 338px; height: 205px"></div> -->
-            <a href="http://maps.google.com/maps?t=h&q=2,Lexington,Avenue,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=2,Lexington,Avenue,New,York,NY&zoom=15&size=338x200&scale=2&markers=color:FF3333|2,Lexington,Avenue,New,York,NY&sensor=false"></img></a>
+          <div class="mini-layout-header">
+            <h5>
+              <form>
+                Added: {{ date|date:"m/d/Y" }}
+                <!-- <input type="submit" class="btn btn-copy" value="Share"></input> -->
+              </form>
+            </h5>    
           </div>
-          <p><h4>2 Lexington Avenue, New York NY</h3>
-          Tags: billiards, tunes, prosciutto</p>
+          <h3>Gramercy Park Hotel</h2>
+          <div class="mini-layout-body">
+            <a href="http://maps.google.com/maps?t=h&q=2,Lexington,Avenue,New,York,NY&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center=2,Lexington,Avenue,New,York,NY&zoom=15&size=338x210&scale=2&markers=color:FF3333|2,Lexington,Avenue,New,York,NY&sensor=false"></img></a>
+          </div>
+          <h4>2 Lexington Avenue, New York NY</h3>
+          Tags: billiards, tunes, prosciutto
         </div>
       </div>
 
@@ -69,7 +75,7 @@
       <!--Register form-->
       <div class="span4">
         <form class="mini-layout-register" action="/register" method="POST">{% csrf_token %}
-          <p><strong>New to Leadr? </strong>Sign up here.</p>
+          <p><strong>New to Leadr? </strong>Sign up is free.</p>
           <table>
             <tr><td>{{ registration_form.first_name }}</td></tr>
             <tr><td>{{ registration_form.email }}</td></tr>

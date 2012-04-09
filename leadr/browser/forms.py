@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from leadr.browser.models import Entry
 
 class RegistrationForm(forms.ModelForm):
-	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email', 'class':'spanhome'}))	
+	email = forms.EmailField(widget=forms.TextInput(attrs={'placeholder':'Email - used for account notifications only.', 'class':'spanhome'}))	
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder':'Password', 'class':'spanhome'}))
 
 	class Meta():

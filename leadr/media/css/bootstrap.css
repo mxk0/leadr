@@ -421,12 +421,13 @@ h2 small {
 h3 {
   line-height: 27px;
   font-size: 18px;
+  padding-bottom: 4px;
 }
 h3 small {
   font-size: 14px;
 }
 h4 {
-  padding-top: 8px;
+  padding-top: 9px;
 }
 h5,
 h6 {
@@ -621,7 +622,7 @@ pre code {
   overflow-y: scroll;
 }
 form {
-  margin: 0 0 18px;
+  margin: 0 0 5px;
 }
 fieldset {
   padding: 0;
@@ -832,6 +833,9 @@ select:focus {
 .input-xlarge {
   width: 270px;
 }
+.input-zlarge {
+  width: 326px;
+}
 .input-xxlarge {
   width: 530px;
 }
@@ -1005,8 +1009,8 @@ select:focus:required:invalid:focus {
   -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
   -moz-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
   box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.025);
-  cursor: not-allowed;
-}
+/*  cursor: not-allowed;
+*/}
 :-moz-placeholder {
   color: #999999;
 }
@@ -2152,6 +2156,21 @@ table .span24 {
   font-size: 11px;
   line-height: 14px;
 }
+.btn-copy {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 13px;
+}
+.btn-copy2 {
+  padding: 2px 6px;
+  font-size: 10px;
+  line-height: 13px;
+}
+.btn-add {
+  padding: 2px 6px;
+  font-size: 11px;
+  line-height: 13px;
+}
 .btn-primary,
 .btn-primary:hover,
 .btn-warning,
@@ -2217,6 +2236,7 @@ table .span24 {
   color: #ffffff;
   margin-left: -59px;
   margin-top: -9px;
+  margin-right: -10px;
 }
 .btn-primary-pwd.active,
 .btn-warning.active,
@@ -2407,6 +2427,20 @@ button.btn.btn-mini,
 input[type="submit"].btn.btn-mini {
   *padding-top: 1px;
   *padding-bottom: 1px;
+}
+button.btn.btn-copy,
+input[type="submit"].btn.btn-copy {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+  margin-top: -1px;
+  margin-left: 183px;
+}
+button.btn.btn-add,
+input[type="submit"].btn.btn-add {
+  *padding-top: 1px;
+  *padding-bottom: 1px;
+  margin-top: -1px;
+  margin-left: 126px;
 }
 .btn-group {
   position: relative;
@@ -3452,7 +3486,7 @@ input[type="submit"].btn.btn-mini {
   z-index: 1050;
   overflow: auto;
   width: 560px;
-  height: 401px;
+  height: 405px;
   margin: -250px 0 0 -280px;
   background-color: #ffffff;
   border: 1px solid #999;
@@ -3488,8 +3522,8 @@ input[type="submit"].btn.btn-mini {
   z-index: 1050;
   overflow: auto;
   width: 368px;
-  height: 452px;
-  margin: -250px 0 0 -185px;
+  height: 467px;
+  margin: -271px 0 0 -185px;
   background-color: #ffffff;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
@@ -3515,6 +3549,42 @@ input[type="submit"].btn.btn-mini {
   top: -25%;
 }
 .modal-register.fade.in {
+  top: 50%;
+}
+.modal-share {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  z-index: 1050;
+  overflow: auto;
+  width: 430px;
+  height: 200px;
+  margin: -150px 0 0 -220px;
+  background-color: #ffffff;
+  border: 1px solid #999;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  *border: 1px solid #999;
+  /* IE6-7 */
+
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  -webkit-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -moz-box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+  -webkit-background-clip: padding-box;
+  -moz-background-clip: padding-box;
+  background-clip: padding-box;
+}
+.modal-share.fade {
+  -webkit-transition: opacity .3s linear, top .3s ease-out;
+  -moz-transition: opacity .3s linear, top .3s ease-out;
+  -ms-transition: opacity .3s linear, top .3s ease-out;
+  -o-transition: opacity .3s linear, top .3s ease-out;
+  transition: opacity .3s linear, top .3s ease-out;
+  top: -25%;
+}
+.modal-share.fade.in {
   top: 50%;
 }
 .modal-header {
