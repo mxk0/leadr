@@ -1,4 +1,3 @@
-source leadrenv/bin/activate
 
 Changes:
 	Log-out link in browser
