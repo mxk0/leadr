@@ -145,7 +145,7 @@
           <div class="mini-layout-card">
             <div class="mini-layout-header">
               <h5>
-                <form action="/location/{{ entry.id }}" method="get">
+                <form action="/location/{{ entry.encoded_id }}" method="get">
                   Added: {{ entry.created|date:"m/d/Y" }}
                   <input type="submit" class="btn btn-copy" value="Share"></input>
                 </form>

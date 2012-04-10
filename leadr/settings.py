@@ -7,7 +7,7 @@ def _get_dir_name():
     if sys.platform == 'darwin':
         return '/Users/MKramer/Desktop/deploy/whereto/leadr/'
     else:
-        return 'C:/Users/Max/Dropbox/Leadr/leadr/'
+        return 'C:/Users/Max/Dropbox/leadr/'
 
 
 DEBUG = True

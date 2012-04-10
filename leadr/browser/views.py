@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from leadr.browser.models import Entry, Tag, Example
 from os.path import join
+from base64 import b64encode, b64decode
 from settings import MEDIA_ROOT
 import settings
 import datetime
@@ -108,6 +109,7 @@ def browser(request):
                 trunc_tag_lst = entry.tag_lst[0:45] + "..."
                 entry.tag_lst = trunc_tag_lst
         entry.split_address = ','.join(entry.raw_address.split(' '))
+        entry.encoded_id = b64encode(str(entry.id))
 
     examples = Example.objects.all().order_by('-created')
     for example in examples:
@@ -149,8 +151,9 @@ def single_loc(request, id):
     """Shows single location publicly."""
     registration_form = RegistrationModalForm()
     login_form = LoginModalForm()
-    entry = Entry.objects.get(id=id)
-    print entry.user
+    entry_id = int(b64decode(id))
+    entry = Entry.objects.get(id=entry_id)
+    entry.url = id
 
     tags = [x[1] for x in entry.tags.values_list()]
     if tags:
