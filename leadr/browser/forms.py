@@ -42,10 +42,29 @@ class LoginModalForm(forms.ModelForm):
 		model = User
 
 
-class EntryForm(forms.Form):
+class EntryForm(forms.ModelForm):
 	raw_address = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
 	title = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
+	tags = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
+
+	class Meta():
+		model = Entry
+
+
+class EditForm(forms.ModelForm):
+	raw_address = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
+	title = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}), required=False)
 	tags = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}), required=False)
+
+	class Meta():
+		model = Entry
+
+	# uid = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
+
+	# def __init__(self, id):
+	# 	super(EditForm, self).__init__()
+	# 	e = Entry.objects.get(id=id)
+	# 	self.fields['uid'].widget.placeholder = e.id
 
 
 

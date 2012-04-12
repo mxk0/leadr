@@ -51,8 +51,34 @@
       </form>
     </div>
 
+    <!--Edit Location Modal-->
+    <div id="editModal" class="modal-add hide fade">
+      <form action='/edit/{{ entry.id }}' method='POST'>{% csrf_token %}
+        <div class="modal-header">
+          <a class="close" data-dismiss="modal" >&times;</a>
+          <h3>Edit Your Location</h3>
+        </div>
+        <div class="modal-body">
+          <table><br />
+            <tr><td><h5>Title:</h5></td></tr>
+            <tr><td>{{ edit_form.title }}<br /><br /></td></tr>
+
+            <tr><td><h5>Address:</h5></td></tr>
+            <tr><td>{{ edit_form.raw_address }}<br /><br /></td></tr>
+
+            <tr><td><h5>Tags (i.e. 'bacon, bourbon, bacon bourbon'):</h5></td></tr>
+            <tr><td>{{ edit_form.tags }}<br /><br /></td></tr>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <a class="btn pull-left" data-dismiss="modal" >Cancel</a>
+          <input type="submit" value="Submit Changes" class="btn btn-primary pull-right">
+        </div>
+      </form>
+    </div>
+
     <!--Account Modal-->
-    <div id="accountModal" class="modal hide fade">
+<!--     <div id="accountModal" class="modal hide fade">
       <div class="modal-header">
         <a class="close" data-dismiss="modal" >&times;</a>
         <h3>Your Account</h3>
@@ -76,19 +102,7 @@
         <a href="#" class="btn pull-left" data-dismiss="modal" >Close</a>
         <a href="#" class="btn btn-primary">Save changes</a>
       </div>
-    </div>
-
-
-    <!--Share Modal-->
-    <div id="shareModal" class="modal-share hide fade">
-      <div class="modal-header">
-        <a href="#" class="close" data-dismiss="modal">&times;</a>
-        <h3>Share</h3>
-      </div>
-      <div class="modal-body">
-        <p>Share the link below to easily send this location via email or SMS.</p>
-      </div>
-    </div>
+    </div> -->
 
 
 
@@ -134,20 +148,28 @@
           <div class="mini-layout-description">
             <h3>Welcome to Leadr! Click "Add Location" above to start saving your own places, and we'll ditch ours as soon as you have three. </h3>
             <h4>Coming soon: Mobile apps // Easily add to Leadr through Gmail or our handy bookmarklet</h4>
-<!--               <h5>(Don't worry, we'll ditch our examples as soon as you have three!)</h5> -->
           </div>
         </div>
       </div>
 
       <div class="row">
+
+        <!--Entries-->
         {% for entry in entry_list %}
         <div class="span4_card">
           <div class="mini-layout-card">
             <div class="mini-layout-header">
               <h5>
+                Added: {{ entry.created|date:"m/d/Y" }}
                 <form action="/location/{{ entry.encoded_id }}" method="get">
-                  Added: {{ entry.created|date:"m/d/Y" }}
-                  <input type="submit" class="btn btn-copy" value="Share"></input>
+                  <input type="submit" class="btn btn-share" value="Share"></input>
+                </form>
+<!--                 <form action="/edit/{{ entry.id }}" method="get">
+                  <input type="submit" class="btn btn-edit" data-toggle="modal" href="#editModal" value="Edit"></input>
+                </form> -->
+                <!-- <button data-toggle="modal" href="#editModal" class="btn btn-edit">Edit</button> -->
+                <form action="/delete/{{ entry.id }}" method="post">{% csrf_token %}
+                  <input type="submit" class="btn btn-delete" value="Delete"></input>
                 </form>
               </h5>      
             </div>   
@@ -160,6 +182,8 @@
           </div>
         </div>
         {% endfor %}
+
+        <!--If user has less than three entries, show examples-->
         {% if entry_list|length < 3 %}
           {% for example in example_list %}
           <div class="span4_card">
@@ -182,6 +206,7 @@
           </div>
           {% endfor %}
         {% endif %}
+
       </div>
 
     </div>

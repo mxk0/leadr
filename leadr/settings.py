@@ -7,7 +7,7 @@ def _get_dir_name():
     if sys.platform == 'darwin':
         return '/Users/MKramer/Desktop/deploy/whereto/leadr/'
     else:
-        return 'C:/Users/Max/Dropbox/leadr/'
+        return 'C:/Users/Max/Dropbox/whereto/leadr/'
 
 
 DEBUG = True
@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'leadrdb',                      # Or path to database file if using sqlite3.
         'USER': 'MKramer',                      # Not used with sqlite3.
         'PASSWORD': 'maximum1',                  # Not used with sqlite3.

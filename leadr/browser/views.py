@@ -11,7 +11,7 @@ from settings import MEDIA_ROOT
 import settings
 import datetime
 
-from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm
+from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm, EditForm
 
 
 def home(request):
@@ -95,6 +95,7 @@ def logout_view(request):
 def browser(request):
     """Checks whether user is logged in, if so loads browser."""
     entry_form = EntryForm()
+    edit_form = EditForm()
     date = datetime.datetime.now()
 
     entries = request.user.entry_set.order_by('-created')
@@ -124,8 +125,34 @@ def browser(request):
                 example.tag_lst = trunc_tag_lst
         example.split_address = ','.join(example.raw_address.split(' '))
     
-    context = RequestContext(request, {'browser_user':request.user, 'entry_list':entries, 'entry_form':entry_form, 'date':date, 'example_list':examples})
+    context = RequestContext(request, {'edit_form':edit_form, 'browser_user':request.user, 'entry_list':entries, 'entry_form':entry_form, 'date':date, 'example_list':examples})
     return render_to_response('browser.html', context)
+
+
+@login_required
+def edit_loc(request, id):
+    """Edits an entry."""
+    if request.method == 'POST':
+        e = Entry.objects.get(id=id)
+        edit_form = EditForm(request.POST, instance=e)
+        if edit_form.is_valid():
+            edit_form.save()
+            return HttpResponseRedirect('/browser/')
+        else:
+            return HttpResponseRedirect('/browser/')
+    else:
+        return HttpResponseRedirect('/browser/')
+
+
+@login_required
+def delete_loc(request, id):
+    """Deletes an entry."""
+    if request.method == 'POST':
+        e = Entry.objects.filter(id=id)
+        e.delete()
+        return HttpResponseRedirect('/browser/')
+    else:
+        return HttpResponseRedirect('/browser/')
 
 
 @login_required
@@ -133,7 +160,6 @@ def new_location(request):
     """Adds a new location - uses modal form on browser."""
     if request.method == 'POST':
         entry_form = EntryForm(request.POST)
-        #fix tags here so spaces appear in multi-word tags
         tags = ((request.POST['tags']).replace(', ',',')).split(',')
         if entry_form.is_valid():
             e = Entry.objects.create(user=request.user, raw_address=entry_form.cleaned_data['raw_address'], title=entry_form.cleaned_data['title'])
@@ -168,7 +194,6 @@ def single_loc(request, id):
     
     context = RequestContext(request, {'browser_user':request.user, 'registration_form':registration_form, 'login_form':login_form, 'entry':entry})
     return render_to_response('single_loc.html', context)
-
 
 
 def add_single(request, id):
@@ -313,13 +338,6 @@ def register_add(request, id):
     e.tags = lst
 
     return HttpResponseRedirect('/browser/')
-
-
-
-
-
-
-
 
 
 
