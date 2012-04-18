@@ -1,6 +1,9 @@
+Tonight:
+	figure out how to sync postgres without losing user data
+	install gunicorn module locally (and in leadrenv?)
 
-Changes:
-	Log-out link in browser
+
+Changes (deprecated):
 	3 things in settings
 		MEDIA_ROOT
 		TEMPLATES_DIR

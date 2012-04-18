@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.admin import UserAdmin
 
 class EntryAdmin(admin.ModelAdmin):
-	list_display = ['title', 'user', 'created']
+	list_display = ['title', 'user', 'created', 'short_link']
 	search_fields = ['title', 'tag']
 
 class TagAdmin(admin.ModelAdmin):

@@ -10,6 +10,7 @@ from base64 import b64encode, b64decode
 from settings import MEDIA_ROOT
 import settings
 import datetime
+import bitly_api
 
 from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm, EditForm
 
@@ -100,6 +101,12 @@ def browser(request):
 
     entries = request.user.entry_set.order_by('-created')
     for entry in entries:
+        if len(entry.title) > 27:
+            trunc_title = entry.title[0:28] + "..."
+            entry.title = trunc_title
+        if len(entry.raw_address) > 33:
+            trunc_raw_address = entry.raw_address[0:34] + "..."
+            entry.raw_address = trunc_raw_address
         tags = [x[1] for x in entry.tags.values_list()]
         if tags:
             entry.tag_lst = tags[0]
@@ -184,6 +191,17 @@ def new_location(request):
                 t = Tag.objects.create(user=request.user, tag=tag)
                 lst.append(t)
             e.tags = lst
+
+            #bitly link
+            encoded_id = b64encode(str(e.id))
+            c = bitly_api.Connection('mleadr','R_b2577c8ead1cc2edc49ffb1b641db41d')
+            if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+                link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
+            else:
+                link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+            e.short_link = link_dict['url']
+            e.save()
+
         return HttpResponseRedirect('/browser/')
     else:
         return HttpResponseRedirect('/browser/') 
@@ -239,7 +257,7 @@ def add_single(request, id):
 
 
 def add_example(request, id):
-    """Adds public location if user is logged in. Used with single_loc view."""
+    """Adds example location to browser"""
     if request.method == 'POST':  
         example = Example.objects.get(id=id)
         date = datetime.datetime.now()

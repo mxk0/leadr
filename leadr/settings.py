@@ -57,8 +57,11 @@ LOGIN_URL = '/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'leadr/media'
-#MEDIA_ROOT = (_get_dir_name() + 'media')
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    MEDIA_ROOT = (_get_dir_name() + 'media')
+else:
+    MEDIA_ROOT = 'leadr/media'
+
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -116,27 +119,46 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'leadr.urls'
 
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    'leadr/templates',
-    #_get_dir_name() + 'templates',
-)
 
-INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.sites',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'django.contrib.admin',
-    'leadr.browser',
-    'gunicorn',
-    # Uncomment the next line to enable admin documentation:
-    # 'django.contrib.admindocs',
-)
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    TEMPLATE_DIRS = (
+        _get_dir_name() + 'templates',
+    )
+else:
+    TEMPLATE_DIRS = (
+        'leadr/templates',
+    )
+
+
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'django.contrib.admin',
+        'leadr.browser',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+    )
+else:
+    INSTALLED_APPS = (
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'django.contrib.admin',
+        'leadr.browser',
+        'gunicorn',
+        # Uncomment the next line to enable admin documentation:
+        # 'django.contrib.admindocs',
+    )
+
+
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
