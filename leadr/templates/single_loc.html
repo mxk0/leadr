@@ -81,7 +81,7 @@
     <div class="container">
 
       <div class="row"><br /><br />
-        <div class="span4 offset4">
+        <div class="span4_single">
           <div class="mini-layout-share">
             <span class="input-zlarge uneditable-input">http://www.leadr.cc/location/{{ entry.url }}</span>
           </div>
@@ -89,14 +89,14 @@
       </div>
 
       <div class="row">
-        <div class="span4_card offset4">
+        <div class="span4_single">
           <div class="mini-layout-card">
             <div class="mini-layout-header">
               <h5>Copy the link above to share this location!</h5>
             </div>
             <h3>{{ entry.title }}</h3>
             <div class="mini-layout-body">
-              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=281x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
             </div>
             <h4>{{ entry.raw_address }}</h4>
             Tags: {{ entry.tag_lst }}
@@ -110,7 +110,7 @@
           <div class="row">
             <div class="span4_add">
               <form action="/browser" method="get">
-                <input type="submit" class="btn btn-xlarge btn-inverse" value="<< Back to Leadr"></input>
+                <input type="submit" class="btn btn-zlarge btn-inverse" value="<< Back to Leadr"></input>
               </form>
             </div>
           </div><br /><br />
@@ -118,7 +118,7 @@
           <div class="row">
             <div class="span4_add">
               <form action="/add_single/{{ entry.id }}" method="post">{% csrf_token %}
-                <input type="submit" class="btn btn-xlarge btn-inverse" value="+Add to Leadr"></input>
+                <input type="submit" class="btn btn-zlarge btn-inverse" value="+Add to Leadr"></input>
               </form>
             </div>
           </div><br /><br />
@@ -128,7 +128,7 @@
         <div class="row">
           <div class="span4_add">
             <p>
-              <button class="btn btn-xlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
+              <button class="btn btn-zlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Add to Lead<font color="#FF3333">r</font></font></strong></button>
             </p>
           </div>
         </div><br /><br />

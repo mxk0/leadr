@@ -44,8 +44,8 @@ class LoginModalForm(forms.ModelForm):
 
 class EntryForm(forms.ModelForm):
 	raw_address = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
-	title = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
-	tags = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}))
+	title = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}), required=False)
+	tags = forms.CharField(widget=forms.TextInput(attrs={'class':'span5'}), required=False)
 
 	class Meta():
 		model = Entry

@@ -578,8 +578,14 @@
   .offset2 {
     margin-left: 230px;
   }
+  .offset2_card {
+    margin-left: 260px;
+  }
   .offset1 {
     margin-left: 130px;
+  }
+  .offset1_card {
+    margin-left: 88px;
   }
   .row-fluid {
     width: 100%;

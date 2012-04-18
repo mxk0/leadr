@@ -93,7 +93,7 @@ def logout_view(request):
 
 @login_required
 def browser(request):
-    """Checks whether user is logged in, if so loads browser."""
+    """If user is logged in, browser is loaded."""
     entry_form = EntryForm()
     edit_form = EditForm()
     date = datetime.datetime.now()
@@ -135,8 +135,24 @@ def edit_loc(request, id):
     if request.method == 'POST':
         e = Entry.objects.get(id=id)
         edit_form = EditForm(request.POST, instance=e)
+        tags = ((request.POST['tags']).replace(', ',',')).split(',')
         if edit_form.is_valid():
-            edit_form.save()
+            edited_entry = edit_form.save(commit=False)
+            
+            #re-assigns user to entry
+            edited_entry.user = request.user
+            
+            #tags logic
+            lst = []
+            for tag in tags:
+                t = Tag.objects.create(user=request.user, tag=tag)
+                lst.append(t)
+            edit_form.tags = lst
+
+            #manual save methods (both form and many-to-many needed)
+            edited_entry.save()
+            edit_form.save_m2m()
+
             return HttpResponseRedirect('/browser/')
         else:
             return HttpResponseRedirect('/browser/')

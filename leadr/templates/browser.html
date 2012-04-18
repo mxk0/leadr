@@ -2,20 +2,6 @@
 
 {% block main %}
 
-  <script type="text/javascript">
-
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-30519356-1']);
-  _gaq.push(['_trackPageview']);
-
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
-
-  </script>
-
 
   </head>
 
@@ -37,7 +23,7 @@
             <tr><td><h5>Enter a title:</h5></td></tr>
             <tr><td>{{ entry_form.title }}<br /><br /></td></tr>
 
-            <tr><td><h5>Enter an address:</h5></td></tr>
+            <tr><td><h5>Enter an address (required):</h5></td></tr>
             <tr><td>{{ entry_form.raw_address }}<br /><br /></td></tr>
 
             <tr><td><h5>Enter tags (i.e. 'bacon, bourbon, bacon bourbon'):</h5></td></tr>
@@ -52,11 +38,12 @@
     </div>
 
     <!--Edit Location Modal-->
+    {% for entry in entry_list %}
     <div id="editModal" class="modal-add hide fade">
       <form action='/edit/{{ entry.id }}' method='POST'>{% csrf_token %}
         <div class="modal-header">
           <a class="close" data-dismiss="modal" >&times;</a>
-          <h3>Edit Your Location</h3>
+          <h3>Edit "{{ entry.title }}"</h3>
         </div>
         <div class="modal-body">
           <table><br />
@@ -76,6 +63,7 @@
         </div>
       </form>
     </div>
+    {% endfor %}
 
     <!--Account Modal-->
 <!--     <div id="accountModal" class="modal hide fade">
@@ -143,20 +131,31 @@
 
     <div class="container">
 
-      <div class="row">
+<!--       <div class="row">
         <div class="span12">
           <div class="mini-layout-description">
             <h3>Welcome to Leadr! Click "Add Location" above to start saving your own places, and we'll ditch ours as soon as you have three. </h3>
             <h4>Coming soon: Mobile apps // Easily add to Leadr through Gmail or our handy bookmarklet</h4>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="row">
+        {% if entry_list|length < 5 %}
+        <div class="span4_card offset1_card">
+          <div class="mini-layout-card">
+            <h3>Welcome to Leadr!</h3><br />
+            <h3>Click "Add Location" above to start saving your own places, and we'll ditch ours as soon as you have five. </h3><br />
+            <h3>Coming soon:</h3>
+            <h3>Mobile apps // Easily add to Leadr through Gmail or our handy bookmarklet</h3>
+          </div>
+        </div>
+        {% endif %}
+
 
         <!--Entries-->
         {% for entry in entry_list %}
-        <div class="span4_card">
+        <div class="span4_card offset1_card">
           <div class="mini-layout-card">
             <div class="mini-layout-header">
               <h5>
@@ -167,15 +166,15 @@
 <!--                 <form action="/edit/{{ entry.id }}" method="get">
                   <input type="submit" class="btn btn-edit" data-toggle="modal" href="#editModal" value="Edit"></input>
                 </form> -->
-                <!-- <button data-toggle="modal" href="#editModal" class="btn btn-edit">Edit</button> -->
-                <form action="/delete/{{ entry.id }}" method="post">{% csrf_token %}
+<!--                 <button data-toggle="modal" href="#editModal" class="btn btn-edit">Edit</button>
+ -->                <form action="/delete/{{ entry.id }}" method="post">{% csrf_token %}
                   <input type="submit" class="btn btn-delete" value="Delete"></input>
                 </form>
               </h5>      
             </div>   
             <h3>{{ entry.title }}</h3>
             <div class="mini-layout-body">
-              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
+              <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=281x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
             </div>
             <h4>{{ entry.raw_address }}</h4>
             Tags: {{ entry.tag_lst }}
@@ -184,9 +183,9 @@
         {% endfor %}
 
         <!--If user has less than three entries, show examples-->
-        {% if entry_list|length < 3 %}
+        {% if entry_list|length < 5 %}
           {% for example in example_list %}
-          <div class="span4_card">
+          <div class="span4_card offset1_card">
             <div class="mini-layout-card">
               <div class="mini-layout-header">
                 <h5>
@@ -198,7 +197,7 @@
               </div>
               <h3>{{ example.title }}</h3>
               <div class="mini-layout-body">
-                <a href="http://maps.google.com/maps?t=h&q={{ example.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ example.split_address }}&zoom=15&size=338x210&scale=2&markers=color:red|{{ example.split_address }}&sensor=false"></img></a>
+                <a href="http://maps.google.com/maps?t=h&q={{ example.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ example.split_address }}&zoom=15&size=281x210&scale=2&markers=color:red|{{ example.split_address }}&sensor=false"></img></a>
               </div>
               <h4>{{ example.raw_address }}</h4>
               Tags: {{ example.tag_lst }}
