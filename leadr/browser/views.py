@@ -215,6 +215,13 @@ def single_loc(request, id):
     entry = Entry.objects.get(id=entry_id)
     entry.url = id
 
+    if len(entry.title) > 27:
+        trunc_title = entry.title[0:28] + "..."
+        entry.title = trunc_title
+    if len(entry.raw_address) > 33:
+        trunc_raw_address = entry.raw_address[0:34] + "..."
+        entry.raw_address = trunc_raw_address
+
     tags = [x[1] for x in entry.tags.values_list()]
     if tags:
         entry.tag_lst = tags[0]
@@ -276,6 +283,16 @@ def add_example(request, id):
             t = Tag.objects.create(user=request.user, tag=tag)
             lst.append(t)
         e.tags = lst
+
+        #bitly link
+        encoded_id = b64encode(str(e.id))
+        c = bitly_api.Connection('mleadr','R_b2577c8ead1cc2edc49ffb1b641db41d')
+        if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+            link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
+        else:
+            link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+        e.short_link = link_dict['url']
+        e.save()
 
         return HttpResponseRedirect('/browser/')
     else:

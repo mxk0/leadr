@@ -1,13 +1,6 @@
 Tonight:
 	figure out how to sync postgres without losing user data
-	install gunicorn module locally (and in leadrenv?)
 
-
-Changes (deprecated):
-	3 things in settings
-		MEDIA_ROOT
-		TEMPLATES_DIR
-		add 'gunicorn' to installed apps
 
 
 in whereto directory
