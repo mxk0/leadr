@@ -101,6 +101,17 @@ def browser(request):
 
     entries = request.user.entry_set.order_by('-created')
     for entry in entries:
+
+        #bitly link
+        encoded_id = b64encode(str(entry.id))
+        c = bitly_api.Connection('mleadr','R_b2577c8ead1cc2edc49ffb1b641db41d')
+        if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+            link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
+        else:
+            link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+        entry.short_link = link_dict['url']
+        entry.save()
+
         if len(entry.title) > 26:
             trunc_title = entry.title[0:27] + "..."
             entry.title = trunc_title
