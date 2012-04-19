@@ -137,8 +137,8 @@ def browser(request):
         if len(example.title) > 26:
             trunc_title = example.title[0:27] + "..."
             example.title = trunc_title
-        if len(example.raw_address) > 33:
-            trunc_raw_address = example.raw_address[0:34] + "..."
+        if len(example.raw_address) > 34:
+            trunc_raw_address = example.raw_address[0:35] + "..."
             example.raw_address = trunc_raw_address
 
         tags = [x[1] for x in example.tags.values_list()]
