@@ -133,13 +133,13 @@ def browser(request):
 
     examples = Example.objects.all().order_by('-created')
     for example in examples:
-        
-        if len(entry.title) > 26:
-            trunc_title = entry.title[0:27] + "..."
-            entry.title = trunc_title
-        if len(entry.raw_address) > 33:
-            trunc_raw_address = entry.raw_address[0:34] + "..."
-            entry.raw_address = trunc_raw_address
+
+        if len(example.title) > 26:
+            trunc_title = example.title[0:27] + "..."
+            example.title = trunc_title
+        if len(example.raw_address) > 33:
+            trunc_raw_address = example.raw_address[0:34] + "..."
+            example.raw_address = trunc_raw_address
 
         tags = [x[1] for x in example.tags.values_list()]
         if tags:
