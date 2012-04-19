@@ -101,8 +101,8 @@ def browser(request):
 
     entries = request.user.entry_set.order_by('-created')
     for entry in entries:
-        if len(entry.title) > 27:
-            trunc_title = entry.title[0:28] + "..."
+        if len(entry.title) > 26:
+            trunc_title = entry.title[0:27] + "..."
             entry.title = trunc_title
         if len(entry.raw_address) > 33:
             trunc_raw_address = entry.raw_address[0:34] + "..."
@@ -215,8 +215,8 @@ def single_loc(request, id):
     entry = Entry.objects.get(id=entry_id)
     entry.url = id
 
-    if len(entry.title) > 27:
-        trunc_title = entry.title[0:28] + "..."
+    if len(entry.title) > 26:
+        trunc_title = entry.title[0:27] + "..."
         entry.title = trunc_title
     if len(entry.raw_address) > 33:
         trunc_raw_address = entry.raw_address[0:34] + "..."
