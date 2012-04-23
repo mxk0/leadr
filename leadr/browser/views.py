@@ -238,8 +238,8 @@ def single_loc(request, id):
     if len(entry.title) > 26:
         trunc_title = entry.title[0:27] + "..."
         entry.title = trunc_title
-    if len(entry.raw_address) > 33:
-        trunc_raw_address = entry.raw_address[0:34] + "..."
+    if len(entry.raw_address) > 34:
+        trunc_raw_address = entry.raw_address[0:35] + "..."
         entry.raw_address = trunc_raw_address
 
     tags = [x[1] for x in entry.tags.values_list()]

@@ -81,7 +81,7 @@
     <div class="container">
 
       <div class="row"><br /><br />
-        <div class="span4_single">
+        <div class="span4_single offset4_share">
           <div class="mini-layout-share">
             <span class="input-zlarge uneditable-input">{{ entry.short_link }}</span>
           </div>
@@ -89,7 +89,7 @@
       </div>
 
       <div class="row">
-        <div class="span4_single">
+        <div class="span4_single offset4_share">
           <div class="mini-layout-card">
             <div class="mini-layout-header">
               <h5>Copy the link above to share this location!</h5>
@@ -108,7 +108,7 @@
       {% if user.is_authenticated %}
         {% if browser_user = entry.user %}
           <div class="row">
-            <div class="span4_add">
+            <div class="span4_single offset4_share">
               <form action="/browser" method="get">
                 <input type="submit" class="btn btn-zlarge btn-inverse" value="<< Back to Leadr"></input>
               </form>
@@ -116,7 +116,7 @@
           </div><br /><br />
         {% else %}
           <div class="row">
-            <div class="span4_add">
+            <div class="span4_single offset4_share">
               <form action="/add_single/{{ entry.id }}" method="post">{% csrf_token %}
                 <input type="submit" class="btn btn-zlarge btn-inverse" value="+Save to Leadr"></input>
               </form>
@@ -126,7 +126,7 @@
 
       {% else %}
         <div class="row">
-          <div class="span4_add">
+          <div class="span4_single offset4_share">
             <p>
               <button class="btn btn-zlarge btn-inverse" data-toggle="modal" href="#accountModal"><strong><font face="Georgia">+Save to Lead<font color="#FF3333">r</font></font></strong></button>
             </p>

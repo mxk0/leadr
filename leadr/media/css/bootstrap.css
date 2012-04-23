@@ -37,7 +37,7 @@ html {
 a:focus {
   outline: thin dotted #333;
   outline: 5px auto -webkit-focus-ring-color;
-  outline-offset: -2px;
+  outline:ƒ -2px;
 }
 a:hover,
 a:active {
@@ -196,11 +196,9 @@ a:hover {
 }
 .span4_add {
   width: 300px;
-  padding-left: 487px;
 }
 .span4_single {
   width: 300px;
-  padding-left: 428px;
 }
 .span4_card {
   width: 282px;
@@ -2196,7 +2194,7 @@ table .span24 {
 .btn-inverse:hover {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   color: #ffffff;
-  margin-left: -59px;
+  margin-left: 0px;
 }
 .btn-register {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
@@ -2252,7 +2250,6 @@ table .span24 {
 .btn-inverse:hover {
   text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
   color: #ffffff;
-  margin-left: -59px;
   margin-top: -9px;
   margin-right: -10px;
 }
@@ -2435,7 +2432,7 @@ button.btn.btn-zlarge,
 input[type="submit"].btn.btn-zlarge {
   *padding-top: 7px;
   *padding-bottom: 7px;
-  width: 312px;
+  width: 313px;
   height: 50px;
 }
 button.btn.btn-large,
@@ -3538,9 +3535,9 @@ input[type="submit"].btn.btn-add {
   left: 50%;
   z-index: 1050;
   overflow: auto;
-  width: 505px;
+  width: 312px;
   height: 405px;
-  margin: -250px 0 0 -260px;
+  margin: -250px 0 0 -158px;
   background-color: #ffffff;
   border: 1px solid #999;
   border: 1px solid rgba(0, 0, 0, 0.3);
