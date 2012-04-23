@@ -14,9 +14,11 @@
     <!--New Location Modal-->
     <div id="locationModal" class="modal-add hide fade">
       <form action='/new' method='POST'>{% csrf_token %}
-        <div class="modal-body">
+        <div class="modal-header">
           <a class="close" data-dismiss="modal" >&times;</a>
           <h3>Add a New Location</h3>
+        </div>
+        <div class="modal-body">
           <table><br />
 
             <tr><td><h5>Enter an address (required):</h5></td></tr>
@@ -26,10 +28,12 @@
             <tr><td>{{ entry_form.title }}<br /></td></tr>
 
             <tr><td><h5>Enter tags (i.e. 'bacon, bourbon, bacon bourbon'):</h5></td></tr>
-            <tr><td>{{ entry_form.tags }}<br /><br /></td></tr>
+            <tr><td>{{ entry_form.tags }}<br /></td></tr>
           </table>
-        <a class="btn" data-dismiss="modal" >Cancel</a>
-        <input type="submit" value="Add New Location" class="btn btn-primary-modal">
+        </div>
+        <div class="modal-footer">
+          <a class="btn pull-left" data-dismiss="modal" >Cancel</a>
+          <input type="submit" value="Add New Location" class="btn btn-primary pull-right">
         </div>
       </form>
     </div>

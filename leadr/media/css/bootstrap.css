@@ -2236,8 +2236,6 @@ table .span24 {
 .btn-primary.active {
   background-color: #004099 \9;
 }
-.btn-primary,
-.btn-primary:hover,
 .btn-warning,
 .btn-warning:hover,
 .btn-danger,
@@ -2292,47 +2290,6 @@ table .span24 {
 }
 .btn-primary-pwd:active,
 .btn-primary-pwd.active {
-  background-color: #004099 \9;
-}
-.btn-primary-modal,
-.btn-primary-modal:hover {
-  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-  color: #ffffff;
-  margin-top: -28px;
-  margin-right: -10px;
-  margin-left: 151px;
-}
-.btn-primary-modal.active,
-.btn-warning.active,
-.btn-danger.active,
-.btn-success.active,
-.btn-info.active,
-.btn-inverse.active {
-  color: rgba(255, 255, 255, 0.75);
-}
-.btn-primary-modal {
-  background-color: #0074cc;
-  background-image: -moz-linear-gradient(top, #0088cc, #0055cc);
-  background-image: -ms-linear-gradient(top, #0088cc, #0055cc);
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#0088cc), to(#0055cc));
-  background-image: -webkit-linear-gradient(top, #0088cc, #0055cc);
-  background-image: -o-linear-gradient(top, #0088cc, #0055cc);
-  background-image: linear-gradient(top, #0088cc, #0055cc);
-  background-repeat: repeat-x;
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#0088cc', endColorstr='#0055cc', GradientType=0);
-  border-color: #0055cc #0055cc #003580;
-  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
-}
-.btn-primary-modal:hover,
-.btn-primary-modal:active,
-.btn-primary-modal.active,
-.btn-primary-modal.disabled,
-.btn-primary-modal[disabled] {
-  background-color: #0055cc;
-}
-.btn-primary-modal:active,
-.btn-primary-modal.active {
   background-color: #004099 \9;
 }
 .btn-warning {
@@ -3705,7 +3662,6 @@ input[type="submit"].btn.btn-add {
   overflow-y: auto;
   max-height: 400px;
   padding: 15px;
-  padding-top: 20px;
   margin-top: -12px;
 }
 .modal-form {
