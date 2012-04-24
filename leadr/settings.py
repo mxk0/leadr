@@ -145,6 +145,7 @@ if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
         'django.contrib.staticfiles',
         'django.contrib.admin',
         'leadr.browser',
+        'tastypie',
         # Uncomment the next line to enable admin documentation:
         # 'django.contrib.admindocs',
     )
@@ -159,6 +160,7 @@ else:
         'django.contrib.admin',
         'leadr.browser',
         'gunicorn',
+        'tastypie',
         # Uncomment the next line to enable admin documentation:
         # 'django.contrib.admindocs',
     )
