@@ -1,0 +1,16 @@
+#leadr_bookmarklet{
+/*  border: 3px solid #333;*/
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  border-radius: 6px;
+  position: fixed;
+	_position:absolute;
+	top: 0; 
+	right: 0;
+/*	height: 350px;*/
+	z-index: 10000000;
+	margin: 0;
+	margin-right: 30px;
+	padding: 0;
+	background: white;
+}

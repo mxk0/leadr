@@ -1,0 +1,50 @@
+  
+  {% if user.is_authenticated %}
+
+    <div id="book-bookmarklet">
+      <form action="http://127.0.0.1:8080/bookmarklet_add" method="POST">
+        <div id="book-header">
+          <h1>Save to Lead<span class="redr">r</span>!</h1>
+        </div>
+        <div id="book-body">
+          <table>
+
+            <tr><td><h2>Enter a title:</h2></td></tr>
+            <tr><td>{{ bookmarklet_form.title }}</td></tr>
+
+            <tr><td><h2>Enter an address:</h2></td></tr>
+            <tr><td>{{ bookmarklet_form.raw_address }}</td></tr>
+
+            <tr><td><h2>Enter tags (i.e. &rsquo;bacon, bourbon, bacon bourbon&rsquo;):</h2></td></tr>
+            <tr><td>{{ bookmarklet_form.tags }}</td></tr>
+
+          </table>
+        </div>
+        <div id="book-footer">
+          <a class="btn pull-left" onClick="toggleBookmarklet(\'leadr_bookmarklet\');">Cancel</a>
+          <input type="submit" value="Add New Location" class="btn btn-primary pull-right">
+        </div>
+      </form>
+    </div>
+
+  {% else %}
+
+    <div id="book-login">
+      <form action="http://127.0.0.1:8080/login_bookmarklet/" method="POST">
+        <div id="book-header">
+          <h1>Please Log In to Leadr:</h1>
+        </div>
+        <div id="book-body">
+          <table>
+            <tr><td>{{ login_form.username }}</td></tr>
+            <tr><td>{{ login_form.password }}</td></tr>
+          </table>
+        </div>
+        <div id="book-footer">
+          <a class="btn pull-left" onClick="toggleBookmarklet(\'leadr_bookmarklet\');">Cancel</a>
+          <input type="submit" value="Log In" class="btn btn-primary pull-right">
+        </div>
+      </form>
+    </div>
+
+  {% endif %}

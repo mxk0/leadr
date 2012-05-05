@@ -1,6 +1,4 @@
-Tonight:
-	figure out how to sync postgres without losing user data
-
+switch database to postgres in settings
 
 
 in whereto directory
@@ -8,7 +6,6 @@ in whereto directory
 	git add .
 	git commit -m ""
 	git push heroku
-
 
 
 to sync db

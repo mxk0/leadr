@@ -1,0 +1,27 @@
+
+
+  <div class="bookmarklet">
+    <form action="http://127.0.0.1:8000/bookmarklet_add" method="POST">{% csrf_token %}
+      <div class="modal-header" id="bookmarklet_header">
+        <h3>Save to Leadr!</h3>
+      </div>
+      <div class="modal-body" id="bookmarklet_body">
+        <table>
+
+          <tr><td><h5>Add a title:</h5></td></tr>
+          <tr><td>{{ bookmarklet_form.title }}</td></tr>
+
+          <tr><td><h5>Check the address:</h5></td></tr>
+          <tr><td>{{ bookmarklet_form.raw_address }}</td></tr>
+
+          <tr><td><h5>Add tags (i.e. &rsquo;bacon, bourbon, bacon bourbon&rsquo;):</h5></td></tr>
+          <tr><td>{{ bookmarklet_form.tags }}</td></tr>
+
+        </table>
+      </div>
+      <div class="modal-footer" id="bookmarklet_footer">
+        <a class="btn pull-left" data-dismiss="modal" >Cancel</a>
+        <input type="submit" value="Add New Location" class="btn btn-primary pull-right">
+      </div>
+    </form>
+  </div>

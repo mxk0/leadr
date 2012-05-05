@@ -135,48 +135,21 @@ else:
 # )
 
 
-if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
-    INSTALLED_APPS = (
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django.contrib.admin',
-        'leadr.browser',
-        'tastypie',
-        # Uncomment the next line to enable admin documentation:
-        # 'django.contrib.admindocs',
-    )
-else:
-    INSTALLED_APPS = (
-        'django.contrib.auth',
-        'django.contrib.contenttypes',
-        'django.contrib.sessions',
-        'django.contrib.sites',
-        'django.contrib.messages',
-        'django.contrib.staticfiles',
-        'django.contrib.admin',
-        'leadr.browser',
-        'gunicorn',
-        'tastypie',
-        # Uncomment the next line to enable admin documentation:
-        # 'django.contrib.admindocs',
-    )
 
-# INSTALLED_APPS = (
-#     'django.contrib.auth',
-#     'django.contrib.contenttypes',
-#     'django.contrib.sessions',
-#     'django.contrib.sites',
-#     'django.contrib.messages',
-#     'django.contrib.staticfiles',
-#     'django.contrib.admin',
-#     'leadr.browser',
-#     # Uncomment the next line to enable admin documentation:
-#     # 'django.contrib.admindocs',
-# )
+INSTALLED_APPS = (
+    'django.contrib.auth',
+    'django.contrib.contenttypes',
+    'django.contrib.sessions',
+    'django.contrib.sites',
+    'django.contrib.messages',
+    'django.contrib.staticfiles',
+    'django.contrib.admin',
+    'leadr.browser',
+    'gunicorn',
+    'tastypie',
+    # Uncomment the next line to enable admin documentation:
+    # 'django.contrib.admindocs',
+)
 
 
 

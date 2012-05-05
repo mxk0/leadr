@@ -3,7 +3,17 @@ import settings
 from django.contrib import admin
 admin.autodiscover()
 
-from leadr.browser.views import home, register, login_view, logout_view, browser, new_location, single_loc, add_single, add_example, login_add, register_add, edit_loc, delete_loc
+from leadr.browser.views import home, register, login_view, logout_view, browser, new_location, single_loc, add_single, add_example, login_add, register_add, edit_loc, delete_loc, bookmarklet, bookmarklet_add, login_bookmarklet
+
+
+#tastypie API for JSON access, used by mobile apps
+from tastypie.api import Api
+from leadr.api import UserResource, EntryResource, TagResource
+v1_api = Api(api_name='v1')
+v1_api.register(UserResource())
+v1_api.register(EntryResource())
+v1_api.register(TagResource())
+
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
@@ -20,5 +30,10 @@ urlpatterns = patterns('',
     url(r'^login$', login_view, name='login'),
     url(r'^logout$', logout_view, name='logout'),
     url(r'^new$', new_location, name='new'),
+    url(r'^api/', include(v1_api.urls)),
+    url(r'^bookmarklet/([^/]+)/$', bookmarklet, name='bookmarklett'),
+    url(r'^bookmarklet/([^/]+)/([^/]+)$', bookmarklet, name='bookmarklett_highlighted_text'),
+    url(r'^bookmarklet_add$', bookmarklet_add, name='bookmarklet_add'),
+    url(r'^login_bookmarklet/$', login_bookmarklet, name='login_bookmarklet'),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )

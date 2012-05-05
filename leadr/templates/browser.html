@@ -21,14 +21,15 @@
         <div class="modal-body">
           <table><br />
 
-            <tr><td><h5>Enter an address (required):</h5></td></tr>
-            <tr><td>{{ entry_form.raw_address }}<br /></td></tr>
-
             <tr><td><h5>Enter a title:</h5></td></tr>
             <tr><td>{{ entry_form.title }}<br /></td></tr>
 
+            <tr><td><h5>Enter an address (required):</h5></td></tr>
+            <tr><td>{{ entry_form.raw_address }}<br /></td></tr>
+
             <tr><td><h5>Enter tags (i.e. 'bacon, bourbon, bacon bourbon'):</h5></td></tr>
             <tr><td>{{ entry_form.tags }}<br /></td></tr>
+
           </table>
         </div>
         <div class="modal-footer">
@@ -146,8 +147,8 @@
           <div class="mini-layout-card">
             <h3>Welcome to Leadr!</h3><br />
             <h3>Click "Add Location" above to start saving your own places, and we'll ditch ours as soon as you have five. </h3><br />
-            <h3>Coming soon:</h3>
-            <h3>Mobile apps // Easily add to Leadr through Gmail or our handy bookmarklet</h3>
+            <h3>All New!</h3>
+            <h3>Drag <a href='javascript:(function(){var%20script=document.createElement("scr"+"ipt");var%20t;try%20{t=((window.getSelection%20&&%20window.getSelection())||(document.getSelection%20&&%20document.getSelection())||(document.selection%20&&%20document.selection.createRange%20&&%20document.selection.createRange().text));}catch(e){t%20=%20"";};script.src="http://127.0.0.1:8080/bookmarklet/"+(Math.random())+"/"+t;document.body.appendChild(script);})()'>+Leadr</a> to your bookmarks bar to save a highlighted address on any page!</h3>
           </div>
         </div>
         {% endif %}

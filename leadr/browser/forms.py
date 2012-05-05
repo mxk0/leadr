@@ -67,6 +67,19 @@ class EditForm(forms.ModelForm):
 	# 	self.fields['uid'].widget.placeholder = e.id
 
 
+class BookmarkletForm(forms.ModelForm):
+	raw_address = forms.CharField(widget=forms.TextInput(attrs={'class':'span3_bookmarklet'}))
+	title = forms.CharField(widget=forms.TextInput(attrs={'class':'span3_bookmarklet'}), required=False)
+	tags = forms.CharField(widget=forms.TextInput(attrs={'class':'span3_bookmarklet'}), required=False)
 
+	class Meta():
+		model = Entry
+
+class LoginBookmarkletForm(forms.ModelForm):
+	username = forms.CharField(widget=forms.TextInput(attrs={'placeholder':'Email', 'class':'span3_bookmarklet'}))
+	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class':'span3_bookmarklet'}))
+
+	class Meta():
+		model = User
 
 

@@ -1,9 +1,11 @@
 from django.shortcuts import render_to_response
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.template.context import RequestContext
+from django.template.loader import render_to_string
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_protect, csrf_exempt
 from leadr.browser.models import Entry, Tag, Example
 from os.path import join
 from base64 import b64encode, b64decode
@@ -12,7 +14,7 @@ import settings
 import datetime
 import bitly_api
 
-from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm, EditForm
+from leadr.browser.forms import RegistrationForm, LoginForm, EntryForm, RegistrationModalForm, LoginModalForm, EditForm, BookmarkletForm, LoginBookmarkletForm
 
 
 def home(request):
@@ -99,6 +101,7 @@ def browser(request):
     edit_form = EditForm()
     date = datetime.datetime.now()
 
+    #loads entries
     entries = request.user.entry_set.order_by('-created')
     for entry in entries:
 
@@ -113,11 +116,12 @@ def browser(request):
             entry.short_link = link_dict['url']
             entry.save()
 
-        if len(entry.title) > 26:
-            trunc_title = entry.title[0:27] + "..."
-            entry.title = trunc_title
-        if len(entry.raw_address) > 34:
-            trunc_raw_address = entry.raw_address[0:35] + "..."
+        if entry.title:
+            if len(entry.title) > 26:
+                trunc_title = entry.title[0:27] + "..."
+                entry.title = trunc_title
+        if len(entry.raw_address) > 31:
+            trunc_raw_address = entry.raw_address[0:32] + "..."
             entry.raw_address = trunc_raw_address
         tags = [x[1] for x in entry.tags.values_list()]
         if tags:
@@ -131,6 +135,7 @@ def browser(request):
         entry.split_address = ','.join(entry.raw_address.split(' '))
         entry.encoded_id = b64encode(str(entry.id))
 
+    #loads examples
     examples = Example.objects.all().order_by('-created')
     for example in examples:
 
@@ -233,7 +238,6 @@ def single_loc(request, id):
     login_form = LoginModalForm()
     entry_id = int(b64decode(id))
     entry = Entry.objects.get(id=entry_id)
-    entry.url = id
 
     if len(entry.title) > 26:
         trunc_title = entry.title[0:27] + "..."
@@ -411,16 +415,69 @@ def register_add(request, id):
     return HttpResponseRedirect('/browser/')
 
 
+def bookmarklet(request, random, address=None):
+    """Loads bookmarklet javascript to launch form."""
+    if address:
+        bookmarklet_form = BookmarkletForm(initial={'raw_address':address})
+    else:
+        bookmarklet_form = BookmarkletForm()
+    login_form = LoginBookmarkletForm()
+
+    variables = {'bookmarklet_form':bookmarklet_form, 'login_form':login_form, 'user':request.user}
+    resp = render_to_string('book.js', variables)
+    return HttpResponse(resp, mimetype="text/javascript")
 
 
+@csrf_exempt
+def login_bookmarklet(request):
+    url = request.META['HTTP_REFERER']
+    print "post"
+    """Login functionality."""
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            login(request, user)
+        else:
+            return HttpResponseRedirect(url)
+    else:
+        return HttpResponseRedirect(url)
+
+    #resp = render_to_string('book.js')
+    return HttpResponseRedirect(url)
 
 
+@login_required
+@csrf_exempt
+def bookmarklet_add(request):
+    """Adds a new location using bookmarklet, redirects to current page."""
+    url = request.META['HTTP_REFERER']
 
+    if request.method == 'POST':
+        entry_form =  BookmarkletForm(request.POST)
+        tags = ((request.POST['tags']).replace(', ',',')).split(',')
+        if entry_form.is_valid():
+            e = Entry.objects.create(user=request.user, raw_address=entry_form.cleaned_data['raw_address'], title=entry_form.cleaned_data['title'])
+            lst = []
+            for tag in tags:
+                t = Tag.objects.create(user=request.user, tag=tag)
+                lst.append(t)
+            e.tags = lst
 
+            #bitly link
+            encoded_id = b64encode(str(e.id))
+            c = bitly_api.Connection('mleadr','R_b2577c8ead1cc2edc49ffb1b641db41d')
+            if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+                link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
+            else:
+                link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+            e.short_link = link_dict['url']
+            e.save()
 
-
-
-
+        return HttpResponseRedirect(url)
+    else:
+        return HttpResponseRedirect(url)
 
 
 
