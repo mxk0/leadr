@@ -2,7 +2,7 @@
   {% if user.is_authenticated %}
 
     <div id="book-bookmarklet">
-      <form action="http://127.0.0.1:8080/bookmarklet_add" method="POST">
+      <form action="/bookmarklet_add" method="POST">
         <div id="book-header">
           <h1>Save to Lead<span class="redr">r</span>!</h1>
         </div>
@@ -30,7 +30,7 @@
   {% else %}
 
     <div id="book-login">
-      <form action="http://127.0.0.1:8080/login_bookmarklet/" method="POST">
+      <form action="/login_bookmarklet/" method="POST">
         <div id="book-header">
           <h1>Please Log In to Leadr:</h1>
         </div>
