@@ -18,8 +18,8 @@ function addJS(url){
   headID.appendChild(jsNode);
 }
 
-addCSS("http://127.0.0.1:8080/media/css/bookmarklet-mini.css");
-addJS("http://127.0.0.1:8080/media/js/bookmarklet-dismiss.js");
+addCSS("http://www.leadr.cc/media/css/bookmarklet-mini.css");
+addJS("http://www.leadr.cc/media/js/bookmarklet-dismiss.js");
 
 (function createBookmarklet(){
 	var d = document,
@@ -34,7 +34,7 @@ addJS("http://127.0.0.1:8080/media/js/bookmarklet-dismiss.js");
 	t.rel = "stylesheet";
 	t.media = "screen, projections";
 	t.type = "text/css";
-	t.href = "http://127.0.0.1:8080/media/css/bookmarklet.css";
+	t.href = "http://www.leadr.cc/media/css/bookmarklet.css";
 
 	b.appendChild(t);
 	b.appendChild(c);
