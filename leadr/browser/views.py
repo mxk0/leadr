@@ -430,8 +430,11 @@ def bookmarklet(request, random, address=None):
 
 @csrf_exempt
 def login_bookmarklet(request):
-    url = request.META['HTTP_REFERER']
-    print "post"
+    if request.META['HTTP_REFERER']:
+        url = request.META['HTTP_REFERER']
+    else:
+        url = 'http://www.leadr.cc'
+        
     """Login functionality."""
     if request.method == 'POST':
         username = request.POST['username']
@@ -452,7 +455,10 @@ def login_bookmarklet(request):
 @csrf_exempt
 def bookmarklet_add(request):
     """Adds a new location using bookmarklet, redirects to current page."""
-    url = request.META['HTTP_REFERER']
+    if request.META['HTTP_REFERER']:
+        url = request.META['HTTP_REFERER']
+    else:
+        url = 'http://www.leadr.cc'
 
     if request.method == 'POST':
         entry_form =  BookmarkletForm(request.POST)
