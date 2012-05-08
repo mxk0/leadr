@@ -279,8 +279,8 @@
 #book-footer input[type="submit"] {
   cursor: pointer;
   -webkit-appearance: button;
-  width: auto;
-  height: auto;
+  width: auto !important;
+  height: auto !important;
   font-weight: 400px;
 }
 #book-footer button.btn,
