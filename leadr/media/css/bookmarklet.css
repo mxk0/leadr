@@ -133,7 +133,7 @@
   font-weight: normal;
   line-height: 18px;
   display: inline-block;
-  height: 27px;
+  /*height: 27px;*/
   padding: 4px;
   color: rgb(85, 85, 85);
   background-color: white;
