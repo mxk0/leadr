@@ -125,19 +125,23 @@
   -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
   -o-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
+  -webkit-box-sizing: none;
+  box-sizing: none;
   font-size: 100%;
   vertical-align: middle;
   font-size: 13px;
   font-weight: normal;
   line-height: 18px;
   display: inline-block;
-  height: 18px;
+  height: 27px;
   padding: 4px;
   color: rgb(85, 85, 85);
   background-color: white;
   border: 1px solid rgb(204, 204, 204);
   border-radius: 3px 3px 3px 3px;
+  -webkit-border-radius: 3px;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 27px;
 }
 #book-body table input:focus {
   border-color: rgba(82, 168, 236, 0.8);
