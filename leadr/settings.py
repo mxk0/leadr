@@ -10,7 +10,7 @@ def _get_dir_name():
         return 'C:/Users/Max/Dropbox/leadr/'
 
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (

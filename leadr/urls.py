@@ -37,3 +37,5 @@ urlpatterns = patterns('',
     url(r'^login_bookmarklet/$', login_bookmarklet, name='login_bookmarklet'),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
+
+# handler404 = 'leadr.browser.views.custom_404'
