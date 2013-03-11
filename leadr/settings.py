@@ -5,7 +5,7 @@ import os
 
 def _get_dir_name():
     if sys.platform == 'darwin':
-        return '/Users/MKramer/Desktop/deploy/whereto/leadr/'
+        return '/Users/MKramer/Desktop/Programming/deploy/whereto/leadr/'
     else:
         return 'C:/Users/Max/Dropbox/leadr/'
 
@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'leadrdb',                      # Or path to database file if using sqlite3.
         'USER': 'MKramer',                      # Not used with sqlite3.
         'PASSWORD': 'maximum1',                  # Not used with sqlite3.
@@ -176,6 +176,8 @@ LOGGING = {
     }
 }
 
-import dj_database_url
 
-DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+if DATABASES['default']['ENGINE'] == 'django.db.backends.postgresql_psycopg2':
+    import dj_database_url
+    DATABASES = {'default': dj_database_url.config(default='postgres://localhost')}
+
