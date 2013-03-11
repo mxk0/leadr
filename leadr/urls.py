@@ -7,12 +7,12 @@ from leadr.browser.views import home, register, login_view, logout_view, browser
 
 
 #tastypie API for JSON access, used by mobile apps
-from tastypie.api import Api
-from leadr.api import UserResource, EntryResource, TagResource
-v1_api = Api(api_name='v1')
-v1_api.register(UserResource())
-v1_api.register(EntryResource())
-v1_api.register(TagResource())
+# from tastypie.api import Api
+# from leadr.api import UserResource, EntryResource, TagResource
+# v1_api = Api(api_name='v1')
+# v1_api.register(UserResource())
+# v1_api.register(EntryResource())
+# v1_api.register(TagResource())
 
 
 urlpatterns = patterns('',
@@ -37,5 +37,3 @@ urlpatterns = patterns('',
     url(r'^login_bookmarklet/$', login_bookmarklet, name='login_bookmarklet'),
     (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
-
-# handler404 = 'leadr.browser.views.custom_404'
