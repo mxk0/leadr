@@ -62,8 +62,6 @@ if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
 else:
     MEDIA_ROOT = 'leadr/media'
 
-#MEDIA_ROOT = (_get_dir_name() + 'media')
-
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
@@ -130,9 +128,6 @@ else:
     TEMPLATE_DIRS = (
         'leadr/templates',
     )
-# TEMPLATE_DIRS = (
-#     _get_dir_name() + 'templates',
-# )
 
 
 
