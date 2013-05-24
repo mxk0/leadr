@@ -87,6 +87,7 @@
     <script type="text/javascript">
       _cio.identify({
         // Required attributes
+        id: '{{ user.first_name }}',
         email: '{{ user.email }}',
         created_at: {{ user.date_joined|date:"U" }},
         first_name: '{{ user.first_name }}'
