@@ -69,21 +69,18 @@
     <script type="text/javascript" src="../media/js/bootstrap-button.js"></script>
     <script type="text/javascript" src="../media/js/bootstrap-collapse.js"></script>
     <script type="text/javascript" src="../media/js/application.js"></script>
-    <script type="text/javascript">
-      var _cio = _cio || [];
-      (function() {
-        var a,b,c;a=function(f){return function(){_cio.push([f].
-        concat(Array.prototype.slice.call(arguments,0)))}};b=["identify",
-        "sidentify","track"];for(c=0;c<b.length;c++){_cio[b[c]]=a(b[c])};
-        var t = document.createElement('script'),
-            s = document.getElementsByTagName('script')[0];
-        t.async = true;
-        t.id    = 'cio-tracker';
-        t.setAttribute('data-site-id', 'e2e2ffc066454961abe1');
-        t.src = 'https://assets.customer.io/assets/track.js';
-        s.parentNode.insertBefore(t, s);
-      })();
+    <script id="IntercomSettingsScriptTag">
+      window.intercomSettings = {
+        // TODO: The current logged in user's email address.
+        email: "john.doe@example.com",
+        // TODO: The current logged in user's sign-up date as a Unix timestamp.
+        created_at: 1234567890,
+        app_id: "64ff6c2e12ecde185e56161af9c7c7bd46365b4b"
+      };
     </script>
+    <script>(function(){var w=window;var ic=w.Intercom;if(typeof ic==="function"){ic('reattach_activator');ic('update',intercomSettings);}else{var d=document;var i=function(){i.c(arguments)};i.q=[];i.c=function(args){i.q.push(args)};w.Intercom=i;function l(){var s=d.createElement('script');s.type='text/javascript';s.async=true;s.src='https://api.intercom.io/api/js/library.js';var x=d.getElementsByTagName('script')[0];x.parentNode.insertBefore(s,x);}if(w.attachEvent){w.attachEvent('onload',l);}else{w.addEventListener('load',l,false);}};})()</script>
+
+
 
   </body>
 </html>
