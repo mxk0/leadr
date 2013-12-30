@@ -3,11 +3,11 @@
 import sys
 import os
 
-def _get_dir_name():
-    if sys.platform == 'darwin':
-        return '/Users/MKramer/Desktop/Programming/deploy/whereto/leadr/'
-    else:
-        return 'C:/Users/Max/Dropbox/leadr/'
+# def _get_dir_name():
+#     if sys.platform == 'darwin':
+#         return '/Users/MKramer/Desktop/Code/deploy/whereto/leadr/'
+#     else:
+#         return 'C:/Users/Max/Dropbox/leadr/'
 
 
 DEBUG = False
@@ -21,7 +21,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'leadrdb',                      # Or path to database file if using sqlite3.
         'USER': 'MKramer',                      # Not used with sqlite3.
         'PASSWORD': 'maximum1',                  # Not used with sqlite3.
@@ -57,10 +57,7 @@ LOGIN_URL = '/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
-    MEDIA_ROOT = (_get_dir_name() + 'media')
-else:
-    MEDIA_ROOT = 'leadr/media'
+MEDIA_ROOT = 'leadr/media'
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -120,14 +117,9 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'leadr.urls'
 
 
-if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
-    TEMPLATE_DIRS = (
-        _get_dir_name() + 'templates',
-    )
-else:
-    TEMPLATE_DIRS = (
-        'leadr/templates',
-    )
+TEMPLATE_DIRS = (
+    'leadr/templates',
+)
 
 
 
