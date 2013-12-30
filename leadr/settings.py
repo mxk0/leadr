@@ -57,7 +57,10 @@ LOGIN_URL = '/'
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = 'leadr/media'
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    MEDIA_ROOT = 'media'
+else:
+    MEDIA_ROOT = 'leadr/media'
 
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
@@ -117,9 +120,14 @@ MIDDLEWARE_CLASSES = (
 ROOT_URLCONF = 'leadr.urls'
 
 
-TEMPLATE_DIRS = (
-    'leadr/templates',
-)
+if DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
+    TEMPLATE_DIRS = (
+        'templates',
+    )
+else:
+    TEMPLATE_DIRS = (
+        'leadr/templates',
+    )
 
 
 
