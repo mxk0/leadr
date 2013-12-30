@@ -35,6 +35,6 @@ urlpatterns = patterns('',
     url(r'^bookmarklet/([^/]+)/([^/]+)$', bookmarklet, name='bookmarklett_highlighted_text'),
     url(r'^bookmarklet_add$', bookmarklet_add, name='bookmarklet_add'),
     url(r'^login_bookmarklet/$', login_bookmarklet, name='login_bookmarklet'),
-    (r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': '/media/img/favicon.ico'}),
-    (r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+    url(r'^favicon\.ico$', 'django.views.generic.simple.redirect_to', {'url': settings.MEDIA_ROOT + '/img/favicon.ico'}),
+    url(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 )
