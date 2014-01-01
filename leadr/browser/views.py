@@ -261,6 +261,8 @@ def single_loc(request, id):
             trunc_tag_lst = entry.tag_lst[0:45] + "..."
             entry.tag_lst = trunc_tag_lst
     entry.split_address = ','.join(entry.raw_address.split(' '))
+
+    db_name = entry.title.lower().replace(" ","_")
     
     context = RequestContext(request, {'browser_user':request.user, 'registration_form':registration_form, 
         'login_form':login_form, 'entry':entry, 'dbfile_name':db_name, 'dbfile_id':id})
