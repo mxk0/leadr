@@ -229,7 +229,7 @@ def new_location(request):
 
         #saves a small txt file with entry info, for saving to dropbox
         dbfile =  open(MEDIA_ROOT + '/dropbox/' + encoded_id + '.txt','w')
-        dbfile.write('name: ' + entry_form.cleaned_data['title'] + '\naddress: ' + entry_form.cleaned_data['raw_address'] + '\ntags: ' + request.POST['tags'])
+        dbfile.write('name: ' + entry_form.cleaned_data['title'] + '\naddress: ' + entry_form.cleaned_data['raw_address'])
         dbfile.close()
 
         return HttpResponseRedirect('/browser/')
