@@ -112,7 +112,7 @@ def browser(request):
             if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
                 link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
             else:
-                link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+                link_dict = c.shorten(('http://leadr.mxkramer.com/location/' + encoded_id))
             entry.short_link = link_dict['url']
             entry.save()
 
@@ -223,7 +223,7 @@ def new_location(request):
             if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
                 link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
             else:
-                link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+                link_dict = c.shorten(('http://leadr.mxkramer.com/location/' + encoded_id))
             e.short_link = link_dict['url']
             e.save()
 
@@ -315,7 +315,7 @@ def add_example(request, id):
         if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
             link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
         else:
-            link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+            link_dict = c.shorten(('http://leadr.mxkramer.com/location/' + encoded_id))
         e.short_link = link_dict['url']
         e.save()
 
@@ -434,7 +434,7 @@ def login_bookmarklet(request):
     if request.META['HTTP_REFERER']:
         url = request.META['HTTP_REFERER']
     else:
-        url = 'http://www.leadr.cc'
+        url = 'http://leadr.mxkramer.com'
         
     """Login functionality."""
     if request.method == 'POST':
@@ -459,7 +459,7 @@ def bookmarklet_add(request):
     if request.META['HTTP_REFERER']:
         url = request.META['HTTP_REFERER']
     else:
-        url = 'http://www.leadr.cc'
+        url = 'http://leadr.mxkramer.com'
 
     if request.method == 'POST':
         entry_form =  BookmarkletForm(request.POST)
@@ -478,7 +478,7 @@ def bookmarklet_add(request):
             if settings.DATABASES['default']['ENGINE'] == 'django.db.backends.sqlite3':
                 link_dict = c.shorten(('http://127.0.0.1:8000/location/' + encoded_id))
             else:
-                link_dict = c.shorten(('http://www.leadr.cc/location/' + encoded_id))
+                link_dict = c.shorten(('http://leadr.mxkramer.com/location/' + encoded_id))
             e.short_link = link_dict['url']
             e.save()
 
