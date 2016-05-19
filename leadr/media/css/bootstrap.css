@@ -4342,11 +4342,3 @@ a.thumbnail:hover {
 .invisible {
   visibility: hidden;
 }
-
-.tags-row {
-  display: inline-block;
-  width: 100%;
-}
-.dropbox-dropin-btn {
-  float: right !important;
-}

@@ -227,11 +227,6 @@ def new_location(request):
             e.short_link = link_dict['url']
             e.save()
 
-        #saves a small txt file with entry info, for saving to dropbox
-        dbfile =  open(MEDIA_ROOT + '/dropbox/' + encoded_id + '.txt','w')
-        dbfile.write('name: ' + entry_form.cleaned_data['title'] + '\naddress: ' + entry_form.cleaned_data['raw_address'])
-        dbfile.close()
-
         return HttpResponseRedirect('/browser/')
     else:
         return HttpResponseRedirect('/browser/') 
@@ -261,11 +256,9 @@ def single_loc(request, id):
             trunc_tag_lst = entry.tag_lst[0:45] + "..."
             entry.tag_lst = trunc_tag_lst
     entry.split_address = ','.join(entry.raw_address.split(' '))
-
-    db_name = entry.title.lower().replace(" ","_")
     
     context = RequestContext(request, {'browser_user':request.user, 'registration_form':registration_form, 
-        'login_form':login_form, 'entry':entry, 'dbfile_name':db_name, 'dbfile_id':id})
+        'login_form':login_form, 'entry':entry})
     return render_to_response('single_loc.html', context)
 
 

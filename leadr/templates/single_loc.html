@@ -99,10 +99,7 @@
               <a href="http://maps.google.com/maps?t=h&q={{ entry.split_address }}&z=16&t=m"><img src="http://maps.googleapis.com/maps/api/staticmap?center={{ entry.split_address }}&zoom=15&size=281x210&scale=2&markers=color:red|{{ entry.split_address }}&sensor=false"></img></a>
             </div>
             <h4>{{ entry.raw_address }}</h4>
-            <div class="tags-row">
-              Tags: {{ entry.tag_lst }} 
-              <a href="/media/dropbox/{{ dbfile_id }}.txt" class="dropbox-saver" data-filename="{{ dbfile_name }}.txt"></a>
-            </div>
+            Tags: {{ entry.tag_lst }} 
           </div>
         </div>
       </div>
